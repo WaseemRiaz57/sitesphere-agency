@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SiteSphere | Architecting Digital Excellence</title>
+<meta content="SiteSphere - Minimalist enterprise-grade digital architecture and web solutions for the modern tech era." name="description"/>
+<!-- Fonts: Fraunces (Serif) and Inter (Sans) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'sphere-black': '#0a0a0a',
+            'sphere-gray': '#121212',
+            'sphere-border': 'rgba(255, 255, 255, 0.08)',
+            'sphere-accent': '#f0f0f0',
+          },
+          fontFamily: {
+            serif: ['Fraunces', 'serif'],
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'float-slow': 'float 20s ease-in-out infinite',
+            'marquee': 'marquee 40s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+              '50%': { transform: 'translate(20px, -40px) scale(1.05)' },
+            },
+            marquee: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<!-- Custom Base Styles -->
+<style data-purpose="layout-base">
+body {
+    background-color: #0a0a0a;
+    color: #f0f0f0;
+    font-family: "Inter", sans-serif;
+    overflow-x: hidden
+    }
+/* Grain/Noise Overlay */
+.grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 50;
+    opacity: 0.03;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBfhUEj8w85dxijwESmgSApDBooA9wwxJY7xEvUZWb3dxaqX5FWrx1kq54ejIdlGkGTX4OUAcKcPnJUbJdSmr6Dez7ooAuRshFv5S20Kns4WKMIg9SRicIc8ZrB3dl_MLWJexvbL93_ehIGiXd1ZOfb9zz2WbfsT8SYwAgbZs2__gfF7GwoAo5iuAqHxk_UzKb6SXMKc_I_Rh8fk0ajfjojZrcIVym9D5029cS2x192sTdeXrzSKgc7WbiYHv4eW0aSGIx1A3s-ey0)
+    }
+.bento-card {
+    background: #121212;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+    }
+.bento-card:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translatey(-2px)
+    }
+.glass-nav {
+    backdrop-filter: blur(12px);
+    background-color: rgba(10, 10, 10, 0.8);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05)
+    }
+.gradient-glow {
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%)
+    }
+</style>
+</head>
+<body class="antialiased">
+<div aria-hidden="true" class="grain-overlay"></div>
+<!-- BEGIN: Navigation -->
+<nav class="fixed top-0 left-0 w-full z-40 glass-nav" data-purpose="main-navigation">
+<div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 rounded-full border border-sphere-accent flex items-center justify-center">
+<div class="w-2 h-2 bg-sphere-accent rounded-full"></div>
+</div>
+<span class="font-serif text-xl tracking-tight font-medium">SiteSphere</span>
+</div>
+<div class="hidden md:flex space-x-12 text-sm uppercase tracking-widest text-zinc-400">
+<a class="hover:text-white transition-colors" href="#solutions">Solutions</a>
+<a class="hover:text-white transition-colors" href="#architecture">Architecture</a>
+<a class="hover:text-white transition-colors" href="#cases">Case Studies</a>
+<a class="hover:text-white transition-colors" href="#pricing">Pricing</a>
+</div>
+<a class="px-6 py-2 border border-sphere-accent text-sphere-accent text-sm hover:bg-sphere-accent hover:text-sphere-black transition-all duration-300" href="#contact">
+        Inquire
+      </a>
+</div>
+</nav>
+<!-- END: Navigation -->
+<!-- BEGIN: Hero Section -->
+<main class="relative min-h-screen flex flex-col justify-center items-center px-6 pt-20 overflow-hidden" data-purpose="hero-section">
+<!-- Abstract Floating Elements -->
+<div class="absolute inset-0 z-0">
+<div class="absolute top-1/4 left-1/4 w-96 h-96 bg-zinc-800/10 rounded-full blur-[120px] animate-float-slow"></div>
+<div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-zinc-700/5 rounded-full blur-[150px] animate-float-slow" style="animation-delay: -5s"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl mx-auto">
+<p class="text-zinc-500 uppercase tracking-[0.3em] text-xs mb-8" data-purpose="hero-label">Architecture for the Digital Era</p>
+<h1 class="font-serif text-5xl md:text-8xl lg:text-9xl leading-[1.1] mb-12 font-light">
+        Building <span class="italic">Modern</span> Standards.
+      </h1>
+<p class="text-zinc-400 text-lg md:text-xl max-w-xl mx-auto font-light leading-relaxed mb-12">
+        Scale your enterprise with high-fidelity web experiences engineered for performance, precision, and permanence.
+      </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="bg-sphere-accent text-sphere-black px-10 py-4 font-medium hover:opacity-90 transition-opacity">
+          Start Project
+        </button>
+<button class="text-sphere-accent border-b border-sphere-accent/30 pb-1 hover:border-sphere-accent transition-all">
+          View Portfolio
+        </button>
+</div>
+</div>
+</main>
+<!-- END: Hero Section -->
+<!-- BEGIN: Marquee Section -->
+<section class="py-20 border-y border-sphere-border overflow-hidden" data-purpose="brand-marquee">
+<div class="flex whitespace-nowrap animate-marquee">
+<div class="flex space-x-20 px-10">
+<span class="font-serif text-3xl text-zinc-700">MODERNISM</span>
+<span class="font-serif text-3xl text-zinc-700">SCALABILITY</span>
+<span class="font-serif text-3xl text-zinc-700">FIDELITY</span>
+<span class="font-serif text-3xl text-zinc-700">PRECISION</span>
+<span class="font-serif text-3xl text-zinc-700">INNOVATION</span>
+</div>
+<!-- Duplicate for infinite loop -->
+<div class="flex space-x-20 px-10">
+<span class="font-serif text-3xl text-zinc-700">MODERNISM</span>
+<span class="font-serif text-3xl text-zinc-700">SCALABILITY</span>
+<span class="font-serif text-3xl text-zinc-700">FIDELITY</span>
+<span class="font-serif text-3xl text-zinc-700">PRECISION</span>
+<span class="font-serif text-3xl text-zinc-700">INNOVATION</span>
+</div>
+</div>
+</section>
+<!-- END: Marquee Section -->
+<!-- BEGIN: Bento Services Grid -->
+<section class="py-32 px-6 max-w-7xl mx-auto" data-purpose="services-grid" id="solutions">
+<div class="mb-20">
+<h2 class="font-serif text-4xl mb-4">Core Disciplines</h2>
+<p class="text-zinc-500 font-light">The fundamental pillars of our architectural approach.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[250px]">
+<!-- Big Card: Enterprise Architecture -->
+<div class="bento-card md:col-span-2 md:row-span-2 p-10 flex flex-col justify-end group">
+<div class="mb-auto text-sphere-accent/20 font-serif text-6xl">01</div>
+<div>
+<h3 class="font-serif text-3xl mb-4">Enterprise Architecture</h3>
+<p class="text-zinc-400 font-light leading-relaxed">Robust, production-ready structures built with Next.js 14 and specialized cloud infrastructure. We engineer for zero-downtime, global availability, and sub-second latency.</p>
+</div>
+</div>
+<!-- Medium Card: Interface Design -->
+<div class="bento-card md:col-span-2 md:row-span-1 p-8 flex items-center space-x-8">
+<div class="flex-1">
+<h3 class="font-serif text-2xl mb-2">Interface Design</h3>
+<p class="text-zinc-500 text-sm font-light">Minimalist aesthetics meet functional utility. We craft high-fidelity digital interfaces that prioritize cognitive ease and user conversion.</p>
+</div>
+<div class="w-20 h-20 border border-sphere-accent/10 rounded-full flex items-center justify-center">
+<div class="w-10 h-[1px] bg-sphere-accent/50 rotate-45"></div>
+</div>
+</div>
+<!-- Small Card: Cloud Native -->
+<div class="bento-card p-8 flex flex-col justify-between">
+<div class="w-8 h-8 border border-sphere-accent/20"></div>
+<div class="mt-4">
+<h3 class="font-serif text-xl mb-2">Cloud Native</h3>
+<p class="text-zinc-500 text-xs font-light">Serverless infrastructure optimized for infinite scalability and security.</p>
+</div>
+</div>
+<!-- Small Card: SEO Mastery (The White Card) -->
+<div class="bento-card p-8 flex flex-col justify-between bg-white text-black">
+<div class="w-8 h-8 bg-black"></div>
+<div class="mt-4">
+<h3 class="font-serif text-xl mb-2">SEO Mastery</h3>
+<p class="text-zinc-800 text-xs font-light">Technical SEO strategies that ensure visibility in a crowded digital landscape.</p>
+</div>
+</div>
+<!-- Small Card: Motion Design -->
+<div class="bento-card md:col-span-1 p-8">
+<h3 class="font-serif text-xl mb-4">Motion Design</h3>
+<p class="text-zinc-500 text-sm font-light leading-snug">Purposeful animation that guides the eye, provides feedback, and adds a layer of sophistication to every interaction.</p>
+</div>
+<!-- Placeholder/Request Card -->
+<div class="bento-card md:col-span-1 p-8 border-dashed">
+<div class="h-full flex items-center justify-center">
+<span class="text-zinc-600 text-xs tracking-widest uppercase">Request Spec</span>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Bento Services Grid -->
+<!-- BEGIN: Sector Cards -->
+<section class="py-32 bg-sphere-gray border-y border-sphere-border" data-purpose="sector-interactive" id="architecture">
+<div class="max-w-7xl mx-auto px-6">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+<div>
+<h2 class="font-serif text-4xl md:text-5xl mb-8 leading-tight">Tailored for High-Growth Sectors</h2>
+<p class="text-zinc-400 font-light text-lg mb-10">We specialize in industries where precision is non-negotiable and scale is a requirement.</p>
+<div class="space-y-6">
+<div class="p-6 border-l-2 border-sphere-accent bg-sphere-black/40">
+<h4 class="font-medium text-white mb-2">FinTech &amp; Wealth</h4>
+<p class="text-zinc-500 text-sm">Secure, compliant, and lightning-fast financial interfaces.</p>
+</div>
+<div class="p-6 border-l-2 border-transparent hover:border-zinc-700 transition-colors">
+<h4 class="font-medium text-white mb-2">SaaS &amp; Infrastructure</h4>
+<p class="text-zinc-500 text-sm">Complex data visualizations and user management at scale.</p>
+</div>
+<div class="p-6 border-l-2 border-transparent hover:border-zinc-700 transition-colors">
+<h4 class="font-medium text-white mb-2">Luxury E-commerce</h4>
+<p class="text-zinc-500 text-sm">High-fidelity brand storytelling through immersive digital experiences.</p>
+</div>
+</div>
+</div>
+<div class="relative group">
+<div class="aspect-square bg-gradient-to-br from-zinc-900 to-black border border-sphere-border relative overflow-hidden flex items-center justify-center">
+<!-- Simulated Abstract SVG -->
+<svg class="w-64 h-64 text-sphere-accent/5 opacity-50 group-hover:scale-110 transition-transform duration-700" viewbox="0 0 200 200">
+<circle cx="100" cy="100" fill="none" r="80" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="100" cy="100" fill="none" r="60" stroke="currentColor" stroke-width="0.5"></circle>
+<circle cx="100" cy="100" fill="none" r="40" stroke="currentColor" stroke-width="0.5"></circle>
+<line stroke="currentColor" stroke-width="0.5" x1="100" x2="100" y1="0" y2="200"></line>
+<line stroke="currentColor" stroke-width="0.5" x1="0" x2="200" y1="100" y2="100"></line>
+</svg>
+<div class="absolute inset-0 gradient-glow pointer-events-none"></div>
+</div>
+<div class="absolute -bottom-6 -right-6 bg-sphere-accent text-sphere-black px-6 py-4 text-xs font-bold tracking-widest uppercase">
+            EST. 2024
+          </div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Sector Cards -->
+<!-- BEGIN: Proven Architectures (Case Studies) -->
+<section class="py-32 px-6 max-w-7xl mx-auto" data-purpose="case-studies" id="cases">
+<div class="mb-20">
+<h2 class="font-serif text-4xl mb-4">Proven Architectures</h2>
+<p class="text-zinc-500 font-light">Real-world applications of our digital principles.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-sphere-gray border border-sphere-border mb-6 overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-sphere-black/80"></div>
+<div class="absolute bottom-6 left-6">
+<p class="text-[10px] tracking-[0.2em] uppercase text-sphere-accent/60 mb-2">FinTech</p>
+<h3 class="font-serif text-2xl">Fintech Global</h3>
+</div>
+</div>
+<p class="text-zinc-500 text-sm font-light leading-relaxed">Next-generation asset management platform with real-time data streaming and biometric security integration.</p>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-sphere-gray border border-sphere-border mb-6 overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-sphere-black/80"></div>
+<div class="absolute bottom-6 left-6">
+<p class="text-[10px] tracking-[0.2em] uppercase text-sphere-accent/60 mb-2">Luxury</p>
+<h3 class="font-serif text-2xl">LuxRetail</h3>
+</div>
+</div>
+<p class="text-zinc-500 text-sm font-light leading-relaxed">Immersive 3D shopping experience for a global luxury fashion house, reducing bounce rates by 45%.</p>
+</div>
+<div class="group cursor-pointer">
+<div class="aspect-[4/5] bg-sphere-gray border border-sphere-border mb-6 overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent to-sphere-black/80"></div>
+<div class="absolute bottom-6 left-6">
+<p class="text-[10px] tracking-[0.2em] uppercase text-sphere-accent/60 mb-2">HealthTech</p>
+<h3 class="font-serif text-2xl">HealthSync</h3>
+</div>
+</div>
+<p class="text-zinc-500 text-sm font-light leading-relaxed">Highly-compliant telemedicine infrastructure supporting millions of secure patient-provider interactions.</p>
+</div>
+</div>
+</section>
+<!-- END: Proven Architectures -->
+<!-- BEGIN: Pricing Section -->
+<section class="py-32 px-6" data-purpose="pricing-tables" id="pricing">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-20">
+<h2 class="font-serif text-4xl mb-4">Investment Tiers</h2>
+<p class="text-zinc-500 font-light">Transparent scaling for your digital footprint.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Tier 1 -->
+<div class="p-10 border border-sphere-border flex flex-col hover:bg-sphere-gray transition-colors">
+<span class="text-xs uppercase tracking-widest text-zinc-500 mb-6">Foundation</span>
+<div class="font-serif text-4xl mb-8">$5k <span class="text-sm font-sans text-zinc-600">/ project</span></div>
+<ul class="space-y-4 mb-12 text-sm text-zinc-400 font-light flex-grow">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Custom UI Design</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Next.js Performance Setup</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> 5 Core Templates</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Basic SEO</li>
+</ul>
+<button class="w-full py-4 border border-sphere-border text-sm uppercase tracking-widest hover:bg-sphere-accent hover:text-sphere-black transition-all">Select</button>
+</div>
+<!-- Tier 2: Recommended -->
+<div class="p-10 border border-sphere-accent bg-sphere-black relative flex flex-col shadow-[0_0_50px_rgba(255,255,255,0.03)]">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-sphere-accent text-sphere-black px-4 py-1 text-[10px] font-bold tracking-[0.2em] uppercase">Recommended</div>
+<span class="text-xs uppercase tracking-widest text-sphere-accent mb-6">Growth</span>
+<div class="font-serif text-4xl mb-8">$12k <span class="text-sm font-sans text-zinc-600">/ project</span></div>
+<ul class="space-y-4 mb-12 text-sm text-zinc-300 font-light flex-grow">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-sphere-accent rounded-full"></span> Full Design System</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-sphere-accent rounded-full"></span> Interactive Animations</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-sphere-accent rounded-full"></span> CMS Integration</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-sphere-accent rounded-full"></span> Advanced SEO &amp; Analytics</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-sphere-accent rounded-full"></span> 3 Month Support</li>
+</ul>
+<button class="w-full py-4 bg-sphere-accent text-sphere-black text-sm uppercase tracking-widest hover:opacity-90 transition-all">Select Growth</button>
+</div>
+<!-- Tier 3 -->
+<div class="p-10 border border-sphere-border flex flex-col hover:bg-sphere-gray transition-colors">
+<span class="text-xs uppercase tracking-widest text-zinc-500 mb-6">Enterprise</span>
+<div class="font-serif text-4xl mb-8">Custom</div>
+<ul class="space-y-4 mb-12 text-sm text-zinc-400 font-light flex-grow">
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Custom Micro-services</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> 24/7 Priority Support</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Dedicated Engineer</li>
+<li class="flex items-center gap-3"><span class="w-1 h-1 bg-zinc-500 rounded-full"></span> Global CDN Config</li>
+</ul>
+<button class="w-full py-4 border border-sphere-border text-sm uppercase tracking-widest hover:bg-sphere-accent hover:text-sphere-black transition-all">Inquire</button>
+</div>
+</div>
+</div>
+</section>
+<!-- END: Pricing Section -->
+<!-- BEGIN: Contact Section -->
+<section class="py-32 bg-sphere-black" data-purpose="contact-section" id="contact">
+<div class="max-w-4xl mx-auto px-6">
+<div class="text-center mb-20">
+<h2 class="font-serif text-4xl md:text-5xl mb-4">Architect Your Future</h2>
+<p class="text-zinc-500 font-light">Initialize the consultation for your digital blueprint.</p>
+</div>
+<form class="space-y-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="relative">
+<input class="w-full bg-transparent border-b border-sphere-border py-4 focus:outline-none focus:border-sphere-accent transition-colors peer placeholder-transparent" id="name" placeholder="Name" type="text"/>
+<label class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] text-zinc-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-sphere-accent" for="name">Name</label>
+</div>
+<div class="relative">
+<input class="w-full bg-transparent border-b border-sphere-border py-4 focus:outline-none focus:border-sphere-accent transition-colors peer placeholder-transparent" id="org" placeholder="Organization" type="text"/>
+<label class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] text-zinc-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-sphere-accent" for="org">Organization</label>
+</div>
+</div>
+<div class="relative">
+<input class="w-full bg-transparent border-b border-sphere-border py-4 focus:outline-none focus:border-sphere-accent transition-colors peer placeholder-transparent" id="email" placeholder="Email" type="email"/>
+<label class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] text-zinc-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-sphere-accent" for="email">Email</label>
+</div>
+<div class="relative">
+<textarea class="w-full bg-transparent border-b border-sphere-border py-4 focus:outline-none focus:border-sphere-accent transition-colors peer placeholder-transparent min-h-[100px] resize-none" id="brief" placeholder="Project Brief"></textarea>
+<label class="absolute left-0 top-4 text-xs uppercase tracking-[0.2em] text-zinc-500 transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:top-4 peer-focus:-top-4 peer-focus:text-xs peer-focus:text-sphere-accent" for="brief">Project Brief</label>
+</div>
+<div class="flex justify-center">
+<button class="px-16 py-4 bg-sphere-accent text-sphere-black font-medium text-sm tracking-widest uppercase hover:opacity-90 transition-opacity" type="submit">
+          Send Inquiry
+        </button>
+</div>
+</form>
+</div>
+</section>
+<!-- END: Contact Section -->
+<!-- BEGIN: Footer -->
+<footer class="bg-sphere-black border-t border-sphere-border py-20 px-6" data-purpose="main-footer">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+<div class="md:col-span-2">
+<div class="flex items-center space-x-2 mb-8">
+<div class="w-6 h-6 rounded-full border border-sphere-accent flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-sphere-accent rounded-full"></div>
+</div>
+<span class="font-serif text-lg tracking-tight">SiteSphere</span>
+</div>
+<h5 class="font-serif text-3xl max-w-sm mb-8 font-light">Let's build the next generation of digital.</h5>
+<p class="text-zinc-500 text-sm">hello@sitesphere.tech</p>
+</div>
+<div>
+<h6 class="text-xs uppercase tracking-[0.2em] text-zinc-300 mb-8">Company</h6>
+<ul class="space-y-4 text-sm text-zinc-500">
+<li><a class="hover:text-white transition-colors" href="#">Our Ethos</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Architecture</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Case Studies</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h6 class="text-xs uppercase tracking-[0.2em] text-zinc-300 mb-8">Social</h6>
+<ul class="space-y-4 text-sm text-zinc-500">
+<li><a class="hover:text-white transition-colors" href="#">LinkedIn</a></li>
+<li><a class="hover:text-white transition-colors" href="#">X (Twitter)</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Behance</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Dribbble</a></li>
+</ul>
+</div>
+</div>
+<div class="pt-12 border-t border-sphere-border flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="text-zinc-600 text-xs">© 2024 SiteSphere Studio. All rights reserved.</p>
+<div class="flex space-x-8 text-xs text-zinc-600 uppercase tracking-widest">
+<a class="hover:text-zinc-400" href="#">Privacy</a>
+<a class="hover:text-zinc-400" href="#">Terms</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: Footer -->
+</body></html>
