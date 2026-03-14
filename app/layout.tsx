@@ -18,11 +18,6 @@ export const metadata: Metadata = {
   title: "SiteSphere | Architecting Digital Excellence",
   description:
     "SiteSphere — Minimalist enterprise-grade digital architecture and web solutions for the modern tech era.",
-  // Favicon aur Apple touch icons yahan add kiye gaye hain (SEO/AEO Optimized) 👇
-  icons: {
-    icon: "/favicon.png",
-    apple: "/favicon.png",
-  },
 };
 
 export default function RootLayout({
