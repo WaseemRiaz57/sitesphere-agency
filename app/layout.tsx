@@ -18,6 +18,11 @@ export const metadata: Metadata = {
   title: "SiteSphere | Architecting Digital Excellence",
   description:
     "SiteSphere — Minimalist enterprise-grade digital architecture and web solutions for the modern tech era.",
+  // Favicon aur Apple touch icons yahan add kiye gaye hain (SEO/AEO Optimized) 👇
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
@@ -27,9 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="icon" href="/favicon.png" type="image/png" />
-      </head>
+      {/* Hum ne yahan se <head> nikal diya hai kyunke ab metadata khud sab handle karega */}
       <body
         className={`${inter.variable} ${fraunces.variable} antialiased`}
       >
