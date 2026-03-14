@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Fraunces } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"; // 👈 1. Yeh line add ki hai
 import "./globals.css";
 
 const inter = Inter({
@@ -27,11 +28,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      {/* Hum ne yahan se <head> nikal diya hai kyunke ab metadata khud sab handle karega */}
       <body
         className={`${inter.variable} ${fraunces.variable} antialiased`}
       >
         {children}
+        <Analytics /> {/* 👈 2. Yeh component yahan add kiya hai */}
       </body>
     </html>
   );
