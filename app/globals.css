@@ -1,28 +1,16 @@
 @import "tailwindcss";
 
-/* ── Custom Theme ─────────────────────────────────────────── */
 @theme {
-  --color-sphere-black: #0a0a0a;
-  --color-sphere-gray: #121212;
-  --color-sphere-border: rgba(255, 255, 255, 0.08);
-  --color-sphere-accent: #f0f0f0;
+  --color-sphere-black: #ffffff;
+  --color-sphere-gray: #f8fafc;
+  --color-sphere-border: #e2e8f0;
+  --color-sphere-accent: #0f766e;
 
   --font-serif: var(--font-fraunces), "Fraunces", serif;
   --font-sans: var(--font-inter), "Inter", sans-serif;
 
-  --animate-float-slow: float-slow 20s ease-in-out infinite;
+  --animate-reveal-up: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-marquee: marquee 40s linear infinite;
-}
-
-/* ── Keyframes ────────────────────────────────────────────── */
-@keyframes float-slow {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(20px, -40px) scale(1.05);
-  }
 }
 
 @keyframes marquee {
@@ -34,56 +22,80 @@
   }
 }
 
-/* ── Base ─────────────────────────────────────────────────── */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f0f0f0;
+  background-color: #ffffff;
+  color: #0f172a;
   font-family: var(--font-inter), "Inter", sans-serif;
   overflow-x: hidden;
 }
 
-/* ── Grain / Noise Overlay ────────────────────────────────── */
-.grain-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 50;
-  opacity: 0.03;
-  background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfhUEj8w85dxijwESmgSApDBooA9wwxJY7xEvUZWb3dxaqX5FWrx1kq54ejIdlGkGTX4OUAcKcPnJUbJdSmr6Dez7ooAuRshFv5S20Kns4WKMIg9SRicIc8ZrB3dl_MLWJexvbL93_ehIGiXd1ZOfb9zz2WbfsT8SYwAgbZs2__gfF7GwoAo5iuAqHxk_UzKb6SXMKc_I_Rh8fk0ajfjojZrcIVym9D5029cS2x192sTdeXrzSKgc7WbiYHv4eW0aSGIx1A3s-ey0");
+::selection {
+  background: #ccfbf1;
+  color: #0f172a;
 }
 
-/* ── Bento Card ───────────────────────────────────────────── */
+.reveal-up {
+  animation: reveal-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: opacity, transform;
+}
+
+.grain-overlay {
+  display: none;
+}
+
 .bento-card {
-  background: #121212;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.05);
   transition: all 0.5s ease-out;
 }
 
 .bento-card:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: #99f6e4;
   transform: translateY(-4px);
 }
 
-/* ── Glass Navigation ─────────────────────────────────────── */
 .glass-nav {
   backdrop-filter: blur(12px);
-  background-color: rgba(10, 10, 10, 0.8);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid #e2e8f0;
 }
 
-/* ── Gradient Glow ────────────────────────────────────────── */
 .gradient-glow {
   background: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 0.05) 0%,
+    rgba(20, 184, 166, 0.08) 0%,
     transparent 70%
   );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal-up {
+    opacity: 1;
+    transform: none;
+  }
 }
