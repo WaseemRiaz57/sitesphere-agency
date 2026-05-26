@@ -16,3 +16,6 @@
  GET /?name=Pearl+Dental+Studio&city=Seattle&state=WA&phone=%2B1+206+555+1234&address=88+Pine+Street&lat=47.6062&lng=-122.3321 200 in 431ms (compile: 142ms, render: 288ms)
  GET / 200 in 441ms (compile: 150ms, render: 291ms)
  GET / 200 in 112ms (compile: 21ms, render: 91ms)
+ GET /?name=Pearl%20Dental%20Studio&city=Seattle&state=WA&phone=%2B1%20206%20555%201234&address=88%20Pine%20Street&lat=47.6062&lng=-122.3321 200 in 598ms (compile: 5ms, render: 594ms)
+ GET / 200 in 453ms (compile: 13ms, render: 440ms)
+ GET / 200 in 400ms (compile: 99ms, render: 302ms)
