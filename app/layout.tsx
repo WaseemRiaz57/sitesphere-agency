@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react"; // 👈 1. Yeh line add ki hai
+import { Inter } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const inter = Inter({
@@ -9,16 +9,10 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  weight: ["300", "400", "600"],
-});
-
 export const metadata: Metadata = {
-  title: "SiteSphere | Architecting Digital Excellence",
+  title: "Dental Clinic | Premium Local Dental Care",
   description:
-    "SiteSphere — Minimalist enterprise-grade digital architecture and web solutions for the modern tech era.",
+    "Book preventive, cosmetic, emergency, and restorative dental care with a modern local dental clinic.",
 };
 
 export default function RootLayout({
@@ -28,11 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${inter.variable} ${fraunces.variable} antialiased`}
-      >
+      <body className={`${inter.variable} antialiased`}>
         {children}
-        <Analytics /> {/* 👈 2. Yeh component yahan add kiya hai */}
+        <Analytics />
       </body>
     </html>
   );
