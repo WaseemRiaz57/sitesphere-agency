@@ -138,6 +138,10 @@ const faqs = [
 ];
 
 function readParam(params: SearchParams, keys: string[], fallback: string) {
+  return readParamOptional(params, keys) ?? fallback;
+}
+
+function readParamOptional(params: SearchParams, keys: string[]) {
   for (const key of keys) {
     const value = params[key];
     const normalized = Array.isArray(value) ? value[0] : value;
@@ -147,7 +151,7 @@ function readParam(params: SearchParams, keys: string[], fallback: string) {
     }
   }
 
-  return fallback;
+  return undefined;
 }
 
 function sanitizeWhatsAppNumber(rawNumber: string) {
@@ -206,11 +210,17 @@ async function resolveSearchParams(searchParams: PageProps["searchParams"]) {
 }
 
 function getClinicDetails(params: SearchParams): ClinicDetails {
-  const city = readParam(params, paramKeys.city, FALLBACK_CLINIC.city);
-  const region = readParam(params, paramKeys.region, FALLBACK_CLINIC.region);
+  const city = readParamOptional(params, paramKeys.city) ?? FALLBACK_CLINIC.city;
+  const region =
+    readParamOptional(params, paramKeys.region) ?? FALLBACK_CLINIC.region;
   const phone = readParam(params, paramKeys.phone, FALLBACK_CLINIC.phone);
   const whatsappSource = readParam(params, paramKeys.whatsapp, phone);
   const rawHeroImage = readParam(params, paramKeys.heroImage, FALLBACK_CLINIC.heroImage);
+  const postalCode =
+    readParamOptional(params, paramKeys.postalCode) ??
+    (city === FALLBACK_CLINIC.city && region === FALLBACK_CLINIC.region
+      ? FALLBACK_CLINIC.postalCode
+      : "");
 
   return {
     name: readParam(params, paramKeys.name, FALLBACK_CLINIC.name),
@@ -220,7 +230,7 @@ function getClinicDetails(params: SearchParams): ClinicDetails {
     address: readParam(params, paramKeys.address, FALLBACK_CLINIC.address),
     city,
     region,
-    postalCode: readParam(params, paramKeys.postalCode, FALLBACK_CLINIC.postalCode),
+    postalCode,
     country: readParam(params, paramKeys.country, FALLBACK_CLINIC.country),
     latitude: safeCoordinate(
       readParam(params, paramKeys.latitude, FALLBACK_CLINIC.latitude),
@@ -260,7 +270,7 @@ function buildLocalBusinessSchema(clinic: ClinicDetails) {
       streetAddress: clinic.address,
       addressLocality: clinic.city,
       addressRegion: clinic.region,
-      postalCode: clinic.postalCode,
+      postalCode: clinic.postalCode || undefined,
       addressCountry: clinic.country,
     },
     geo: {
@@ -333,6 +343,7 @@ export default async function Home({ searchParams }: PageProps) {
   const whatsappHref = buildWhatsAppHref(clinic);
   const telHref = `tel:${sanitizeTelHref(clinic.phone)}`;
   const cityLine = [clinic.city, clinic.region].filter(Boolean).join(", ");
+  const postalLine = clinic.postalCode ? ` ${clinic.postalCode}` : "";
   const schema = buildLocalBusinessSchema(clinic);
 
   return (
@@ -791,7 +802,8 @@ export default async function Home({ searchParams }: PageProps) {
                           Clinic address
                         </dt>
                         <dd className="mt-1 text-slate-600">
-                          {clinic.address}, {cityLine} {clinic.postalCode}
+                          {clinic.address}, {cityLine}
+                          {postalLine}
                         </dd>
                       </div>
                     </div>
@@ -844,7 +856,8 @@ export default async function Home({ searchParams }: PageProps) {
               {cityLine}.
             </p>
             <p>
-              {clinic.address}, {cityLine} {clinic.postalCode} · {clinic.phone}
+              {clinic.address}, {cityLine}
+              {postalLine} · {clinic.phone}
             </p>
           </div>
         </footer>
