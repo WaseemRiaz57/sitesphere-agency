@@ -22,6 +22,16 @@ type Scenario = {
 
 const scenarios: Scenario[] = [
   {
+    query: "biryani open now",
+    category: "Restaurant",
+    you: { name: "Your restaurant", rating: 4.8, reviews: 1046, distance: "0.4 km", pin: { x: 46, y: 58 } },
+    others: [
+      { name: "Spice Route Kitchen", rating: 4.3, reviews: 540, distance: "0.9 km", pin: { x: 72, y: 36 } },
+      { name: "Karachi Grill House", rating: 4.1, reviews: 311, distance: "1.5 km", pin: { x: 18, y: 50 } },
+      { name: "Saffron Corner", rating: 3.9, reviews: 96, distance: "2.2 km", pin: { x: 84, y: 70 } },
+    ],
+  },
+  {
     query: "dentist near me",
     category: "Dental clinic",
     you: { name: "Your clinic", rating: 4.9, reviews: 312, distance: "0.6 km", pin: { x: 58, y: 44 } },
@@ -32,13 +42,23 @@ const scenarios: Scenario[] = [
     ],
   },
   {
-    query: "biryani open now",
-    category: "Restaurant",
-    you: { name: "Your restaurant", rating: 4.8, reviews: 1046, distance: "0.4 km", pin: { x: 46, y: 58 } },
+    query: "ac repair same day",
+    category: "HVAC service",
+    you: { name: "Your service", rating: 4.9, reviews: 208, distance: "1.4 km", pin: { x: 38, y: 40 } },
     others: [
-      { name: "Spice Route Kitchen", rating: 4.3, reviews: 540, distance: "0.9 km", pin: { x: 72, y: 36 } },
-      { name: "Karachi Grill House", rating: 4.1, reviews: 311, distance: "1.5 km", pin: { x: 18, y: 50 } },
-      { name: "Saffron Corner", rating: 3.9, reviews: 96, distance: "2.2 km", pin: { x: 84, y: 70 } },
+      { name: "CoolFix Technicians", rating: 4.5, reviews: 97, distance: "2.1 km", pin: { x: 76, y: 28 } },
+      { name: "Metro Air Services", rating: 4.2, reviews: 64, distance: "2.9 km", pin: { x: 22, y: 70 } },
+      { name: "QuickCool Repairs", rating: 3.8, reviews: 31, distance: "3.4 km", pin: { x: 84, y: 66 } },
+    ],
+  },
+  {
+    query: "hair salon near me",
+    category: "Hair salon",
+    you: { name: "Your salon", rating: 4.9, reviews: 455, distance: "0.5 km", pin: { x: 54, y: 36 } },
+    others: [
+      { name: "Studio Glow", rating: 4.5, reviews: 210, distance: "1.0 km", pin: { x: 26, y: 58 } },
+      { name: "The Cutting Room", rating: 4.3, reviews: 148, distance: "1.7 km", pin: { x: 80, y: 24 } },
+      { name: "Velvet Hair & Beauty", rating: 4.0, reviews: 52, distance: "2.5 km", pin: { x: 72, y: 72 } },
     ],
   },
   {

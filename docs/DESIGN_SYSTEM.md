@@ -26,7 +26,7 @@ through Tailwind utilities such as `bg-paper`, `text-ink` and `bg-cobalt`.
 | `paper` | `#EDEEE8` | Page background. A cool mineral off-white, like map paper |
 | `paper-deep` | `#E1E3DA` | Banded sections (marquee, engagements), skeletons |
 | `card` | `#F7F8F4` | Raised surfaces: hero panel, service panel, form fields |
-| `ink` | `#0B1A2E` | Text, dark sections (Work, Contact, Footer) |
+| `ink` | `#0B1A2E` | Text, dark sections (Industries, Contact, Footer) |
 | `ink-soft` | `#475265` | Body copy and secondary text |
 | `ink-faint` | `#7A8494` | Captions, hints, inactive pins |
 | `line` | `ink / 14%` | Dividers and borders on light surfaces |
@@ -41,7 +41,7 @@ Rules:
 - Cobalt means "you can act here" or "this is you". Don't use it decoratively.
 - Dark sections use `ink` with `paper` text at 100/85/70/60% opacity for hierarchy.
 - No gradients as decoration. The only radial gradients are the hero grid mask and
-  the cursor spotlight on the Work preview.
+  nothing else.
 
 ## Typography
 
@@ -96,7 +96,7 @@ Radius follows hierarchy rather than one value for everything:
 | Buttons, chips, nav pills | `9999px`. Pills echo the search bar |
 | Inputs, list rows | `12px` (`rounded-xl`) |
 | Panels (hero search, service panel, engagements, form) | `20px` (`--radius-panel`) |
-| Browser frame in Work | `14px` |
+| Browser frame in Industries | `14px` |
 
 Shadows:
 
@@ -114,7 +114,7 @@ Shadows:
 | `ghost` | Icon or menu buttons |
 
 Sizes: `md` (44px, the minimum touch target) and `lg` (56px). Labels say exactly
-what happens ("Open the live demo", "Discuss Grow"). Don't add arrows to labels.
+what happens ("See what we build", "Discuss Grow"). Don't add arrows to labels.
 
 ## Components
 
@@ -123,15 +123,16 @@ what happens ("Open the live demo", "Discuss Grow"). Don't add arrows to labels.
   right and closes when a link is chosen.
 - **LocalSearchDemo:** the hero animation. It types a query, shows results, then
   moves "Your …" to first place with a spring layout animation, a highlighted row,
-  a pulsing pin and Call/Website/Directions chips. It cycles through clinic,
-  restaurant and law firm.
+  a pulsing pin and Call/Website/Directions chips. It cycles through a restaurant,
+  clinic, AC repair service, salon and law firm.
 - **Marquee:** CSS-only, with two copies of the list and a 48s linear loop. It
   pauses on hover and has masked edges.
 - **Services:** an accessible tab list (arrow keys work) with the detail panel
   cross-fading. The outcome line is in the serif.
-- **Work:** a browser frame and a phone frame showing the real `/demo/dental` page,
-  with a pointer-following spotlight. Refresh the screenshots with
-  `node scripts/capture-work-shots.mjs`.
+- **Industries:** eight industry chips (restaurants, clinics, law, salons, trades,
+  real estate, gyms, retail). Choosing one swaps an illustrative site preview
+  showing that industry's headline, primary action and key features. SiteSphere
+  works with every kind of local business, so no single sector is the showcase.
 - **Process:** a real sequence, so it is numbered. A GSAP ScrollTrigger rail fills
   as you scroll and each step's marker turns cobalt.
 - **Engagements:** Launch / Grow / Partner in a single panel split by hairlines,
@@ -165,4 +166,4 @@ what happens ("Open the live demo", "Discuss Grow"). Don't add arrows to labels.
 
 `npm run test:e2e` runs `tests/home.spec.ts` on desktop and mobile. It checks layout
 overflow, console errors, that no prices appear, anchor targets, mobile navigation,
-service tabs, the FAQ accordion, the WhatsApp hand-off and the demo route.
+service tabs, the industry picker, the FAQ accordion and the WhatsApp hand-off.

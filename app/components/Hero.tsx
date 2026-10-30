@@ -59,8 +59,8 @@ export default function Hero() {
             <LinkButton href="#contact" size="lg">
               Book a free strategy call
             </LinkButton>
-            <LinkButton href="#work" size="lg" variant="secondary">
-              See a live demo
+            <LinkButton href="#industries" size="lg" variant="secondary">
+              See what we build
             </LinkButton>
           </motion.div>
 

@@ -20,9 +20,6 @@ export default function Footer() {
                 {link.label}
               </a>
             ))}
-            <a href="/demo/dental" className="transition-colors hover:text-paper">
-              Live demo
-            </a>
             <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors hover:text-paper">
               Email
             </a>

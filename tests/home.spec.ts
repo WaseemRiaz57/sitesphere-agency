@@ -99,9 +99,19 @@ test.describe("homepage", () => {
     await expect(page.getByText("Enquiry sent")).toBeVisible();
   });
 
-  test("live demo page loads", async ({ page }) => {
+  test("industry picker updates the site preview", async ({ page }) => {
+    await page.goto("/");
+    const section = page.locator("#industries");
+    const chip = section.getByRole("button", { name: "Home services & trades" });
+    await chip.click();
+    await expect(chip).toHaveAttribute("aria-pressed", "true");
+    await expect(section.getByText("Get a quote")).toBeVisible();
+  });
+
+  test("has no dental demo route or links", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('a[href*="demo"]')).toHaveCount(0);
     const res = await page.goto("/demo/dental");
-    expect(res?.status()).toBe(200);
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    expect(res?.status()).toBe(404);
   });
 });
