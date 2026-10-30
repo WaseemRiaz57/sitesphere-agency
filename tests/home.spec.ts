@@ -114,4 +114,12 @@ test.describe("homepage", () => {
     const res = await page.goto("/demo/dental");
     expect(res?.status()).toBe(404);
   });
+  test("UGC section lets visitors pick an example ad", async ({ page }) => {
+    await page.goto("/");
+    const section = page.locator("#ugc");
+    await expect(section.getByRole("heading", { level: 2 })).toContainText("UGC ads");
+    const first = section.getByRole("button", { name: /First visit/ });
+    await first.click();
+    await expect(first).toHaveAttribute("aria-pressed", "true");
+  });
 });

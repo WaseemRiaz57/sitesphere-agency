@@ -7,8 +7,10 @@ import {
   Gauge,
   LayoutTemplate,
   MapPinned,
+  Megaphone,
   MousePointerClick,
   Store,
+  Video,
   type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/app/lib/utils";
@@ -66,6 +68,36 @@ const services: Service[] = [
       "Q&A management",
     ],
     outcome: "A profile that earns the call, not just the impression.",
+  },
+  {
+    name: "UGC video ads",
+    Icon: Video,
+    summary:
+      "Short, phone-shot videos of real people using and recommending your business. They feel like a friend's tip, not an advert, which is why they stop the scroll on Reels, TikTok and Shorts.",
+    includes: [
+      "Hook and script writing",
+      "Creator sourcing and briefing",
+      "Filming at your location",
+      "Edits for Reels, TikTok and Shorts",
+      "Captions, subtitles and cut-downs",
+      "Multiple hooks per video for testing",
+    ],
+    outcome: "Ads people watch to the end, and then call you.",
+  },
+  {
+    name: "Paid ads & social media",
+    Icon: Megaphone,
+    summary:
+      "We run Meta, Google and TikTok campaigns aimed at people within reach of your business, and keep your social pages active between campaigns.",
+    includes: [
+      "Meta and Instagram ads",
+      "Google Search and Maps ads",
+      "TikTok ads",
+      "Location and radius targeting",
+      "Monthly content calendar",
+      "Budget and results reporting",
+    ],
+    outcome: "Ad spend you can trace to calls, messages and bookings.",
   },
   {
     name: "Speed & technical SEO",
@@ -145,11 +177,12 @@ export default function Services() {
             id="services-title"
             className="text-balance text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.04em]"
           >
-            Everything it takes to win local search, under one roof.
+            Everything it takes to get found, get chosen and get booked.
           </h2>
           <p className="mt-5 max-w-[38rem] text-lg text-ink-soft">
-            One team handles the website, the rankings and the reviews, so nothing
-            gets lost between three different suppliers.
+            One team handles your website, your search rankings, your reviews and
+            your ads. Nothing gets lost between four different suppliers, and every
+            piece is measured by the same thing: new customers.
           </p>
         </div>
 

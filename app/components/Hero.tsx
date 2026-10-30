@@ -50,9 +50,9 @@ export default function Hero() {
             {...rise(0.12)}
             className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-ink-soft sm:text-xl"
           >
-            SiteSphere designs fast, custom websites and runs the local SEO behind
-            them, so clinics, restaurants, law firms and trades win the search, the
-            click and the call.
+            SiteSphere is a web design and marketing agency for local businesses.
+            We build fast, custom websites, rank you in local search, and run UGC
+            and paid ads that turn attention into calls and bookings.
           </motion.p>
 
           <motion.div {...rise(0.22)} className="mt-10 flex flex-col gap-3 sm:flex-row">

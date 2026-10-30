@@ -17,14 +17,16 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://sitesphere.tech"),
-  title: "SiteSphere | Web design & local SEO for local businesses",
+  metadataBase: new URL("https://www.sitesphere.me"),
+  title: "SiteSphere | Web design, SEO & UGC ads for local businesses",
   description:
-    "SiteSphere designs fast, custom websites and runs the local SEO behind them, so clinics, restaurants, law firms and trades get found first and booked more often.",
+    "SiteSphere is a web design and digital marketing agency for local businesses: custom websites, local SEO, Google Business Profile, UGC video ads and paid social campaigns.",
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "SiteSphere | Web design & local SEO for local businesses",
+    title: "SiteSphere | Web design, SEO & UGC ads for local businesses",
     description:
-      "Custom websites, local SEO and Google Business Profile management for businesses that serve their neighbourhood.",
+      "Custom websites, local SEO, UGC video ads and paid marketing for businesses that serve their neighbourhood.",
+    url: "https://www.sitesphere.me",
     type: "website",
     siteName: "SiteSphere",
   },

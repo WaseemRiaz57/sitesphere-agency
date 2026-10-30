@@ -15,11 +15,19 @@ export const faqs = [
   },
   {
     q: "Can you help us rank in our city and nearby areas?",
-    a: "That is the core of what we do. We build pages for each service and area you cover, optimise your Google Business Profile, fix your listings across directories and track rankings month by month.",
+    a: "Yes, that is at the heart of what we do. We build pages for each service and area you cover, optimise your Google Business Profile, fix your listings across directories and track rankings month by month.",
   },
   {
     q: "When will we see results from SEO?",
     a: "Fixes to your profile and site speed often show up within weeks. Ranking for competitive searches usually takes three to six months of steady work. Your monthly report shows exactly what moved.",
+  },
+  {
+    q: "What are UGC ads, and do they work for local businesses?",
+    a: "UGC ads are short, phone-shot videos of real people talking about your business, like a friend's recommendation. They often outperform polished adverts on Instagram, TikTok and YouTube Shorts because they feel trustworthy. For local businesses they work especially well when the creator shows the real place, the real staff and the real result.",
+  },
+  {
+    q: "Do you run the ads, or only make the videos?",
+    a: "Both, or either. We can produce UGC videos for you to post and boost yourself, or handle the whole campaign: scripts, creators, editing, targeting people near your business, budget management and monthly reporting on calls and bookings.",
   },
   {
     q: "We already have a website. Do we need a new one?",

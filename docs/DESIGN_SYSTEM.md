@@ -1,6 +1,6 @@
 # SiteSphere design system
 
-SiteSphere builds websites and runs local SEO for businesses that serve their
+SiteSphere builds websites, runs local SEO and produces UGC and paid ads for businesses that serve their
 neighbourhood: clinics, restaurants, law firms, salons and trades. The site has one
 job: convince an owner that we are the team to make them the business people find
 first nearby, and get them to book a strategy call.
@@ -129,6 +129,11 @@ what happens ("See what we build", "Discuss Grow"). Don't add arrows to labels.
   pauses on hover and has masked edges.
 - **Services:** an accessible tab list (arrow keys work) with the detail panel
   cross-fading. The outcome line is in the serif.
+- **About:** what the agency is and who it is for, a serif pull statement with a
+  cobalt rule, and four principles in a two-column definition list (no cards).
+- **UGC ads:** three phone mockups of example ad concepts (hook sticker, creator
+  handle, caption, progress bar). Tapping one brings it forward and plays its
+  progress bar. Below are the ad formats and a four-step campaign flow.
 - **Industries:** eight industry chips (restaurants, clinics, law, salons, trades,
   real estate, gyms, retail). Choosing one swaps an illustrative site preview
   showing that industry's headline, primary action and key features. SiteSphere

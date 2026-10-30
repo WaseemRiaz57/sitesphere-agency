@@ -44,7 +44,7 @@ export default function ContactForm() {
     }
 
     const message = [
-      "*New enquiry from sitesphere.tech*",
+      "*New enquiry from sitesphere.me*",
       `*Name:* ${form.name}`,
       `*Business:* ${form.business || "—"}`,
       `*Email:* ${form.email}`,
