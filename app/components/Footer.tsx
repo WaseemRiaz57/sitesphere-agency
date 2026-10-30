@@ -1,104 +1,46 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
-
-const companyLinks = [
-  { label: "Our Ethos", href: "#" },
-  { label: "Architecture", href: "#architecture" },
-  { label: "Case Studies", href: "#cases" },
-  { label: "Contact", href: "#contact" },
-];
-
-const socialLinks = [
-  { label: "LinkedIn", href: "#" },
-  { label: "X (Twitter)", href: "#" },
-  { label: "Behance", href: "#" },
-  { label: "Dribbble", href: "#" },
-];
+import { CONTACT_EMAIL, navLinks, whatsappHref } from "@/app/lib/site";
 
 export default function Footer() {
   return (
-    <motion.footer
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.8 }}
-      className="bg-sphere-black border-t border-sphere-border py-20 px-6"
-    >
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-          {/* Brand Column */}
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-8">
-              <Image
-                src="/logo.png"
-                alt="SiteSphere logo"
-                width={180}
-                height={48}
-                className="h-10 w-auto"
-              />
-            </div>
-            <h5 className="font-serif text-3xl max-w-sm mb-8 font-light">
-              Let&apos;s build the next generation of digital.
-            </h5>
-            <p className="text-zinc-500 text-sm">hello@sitesphere.tech</p>
+    <footer className="bg-ink pb-10 text-paper">
+      <div className="mx-auto max-w-[76rem] px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-10 border-t border-night-line pt-14 md:flex-row md:items-start md:justify-between">
+          <div className="max-w-[24rem]">
+            <Image src="/logo-mark.png" alt="SiteSphere" width={1040} height={225} className="h-9 w-auto" />
+            <p className="mt-5 text-paper/60">
+              Websites, local SEO and Google Business Profile management for
+              businesses that serve their neighbourhood.
+            </p>
           </div>
 
-          {/* Company Links */}
-          <div>
-            <h6 className="text-xs uppercase tracking-[0.2em] text-zinc-300 mb-8">
-              Company
-            </h6>
-            <ul className="space-y-4 text-sm text-zinc-500">
-              {companyLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="hover:text-white transition-all duration-300 ease-out"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Social Links */}
-          <div>
-            <h6 className="text-xs uppercase tracking-[0.2em] text-zinc-300 mb-8">
-              Social
-            </h6>
-            <ul className="space-y-4 text-sm text-zinc-500">
-              {socialLinks.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="hover:text-white transition-all duration-300 ease-out"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-16 gap-y-3 text-paper/70 sm:grid-cols-3">
+            {navLinks.map((link) => (
+              <a key={link.href} href={link.href} className="transition-colors hover:text-paper">
+                {link.label}
+              </a>
+            ))}
+            <a href="/demo/dental" className="transition-colors hover:text-paper">
+              Live demo
+            </a>
+            <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors hover:text-paper">
+              Email
+            </a>
+            <a
+              href={whatsappHref("Hello SiteSphere!")}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-paper"
+            >
+              WhatsApp
+            </a>
+          </nav>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-12 border-t border-sphere-border flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-zinc-600 text-xs">
-            © 2024 SiteSphere Studio. All rights reserved.
-          </p>
-          <div className="flex space-x-8 text-xs text-zinc-600 uppercase tracking-widest">
-            <a href="#" className="hover:text-zinc-400 transition-all duration-300 ease-out">
-              Privacy
-            </a>
-            <a href="#" className="hover:text-zinc-400 transition-all duration-300 ease-out">
-              Terms
-            </a>
-          </div>
-        </div>
+        <p className="mt-16 text-sm text-paper/45">
+          © {new Date().getFullYear()} SiteSphere. All rights reserved.
+        </p>
       </div>
-    </motion.footer>
+    </footer>
   );
 }
