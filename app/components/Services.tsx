@@ -172,14 +172,14 @@ export default function Services() {
   return (
     <section id="services" aria-labelledby="services-title" className="py-24 sm:py-32">
       <div className="mx-auto max-w-[76rem] px-4 sm:px-6 lg:px-8">
-        <div className="max-w-[46rem]">
+        <div className="grid items-end gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
           <h2
             id="services-title"
             className="text-balance text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.04em]"
           >
             Everything it takes to get found, get chosen and get booked.
           </h2>
-          <p className="mt-5 max-w-[38rem] text-lg text-ink-soft">
+          <p className="max-w-[34rem] text-lg text-ink-soft lg:pb-2">
             One team handles your website, your search rankings, your reviews and
             your ads. Nothing gets lost between four different suppliers, and every
             piece is measured by the same thing: new customers.
@@ -187,7 +187,7 @@ export default function Services() {
         </div>
 
         {/* Desktop: list on the left, details on the right */}
-        <div className="mt-16 hidden gap-12 lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="mt-14 hidden gap-12 lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div role="tablist" aria-label="Services" aria-orientation="vertical" className="flex flex-col">
             {services.map((service, i) => {
               const selected = i === active;
@@ -209,13 +209,13 @@ export default function Services() {
                     document.getElementById(`service-tab-${next}`)?.focus();
                   }}
                   className={cn(
-                    "group relative flex items-center gap-4 border-b border-line py-5 text-left text-[1.625rem] font-bold tracking-[-0.03em] transition-colors duration-200",
+                    "group relative flex items-center gap-4 border-b border-line py-3.5 text-left text-[1.375rem] font-bold tracking-[-0.03em] transition-colors duration-200",
                     selected ? "text-ink" : "text-ink/35 hover:text-ink/70"
                   )}
                 >
                   <span
                     className={cn(
-                      "grid size-10 shrink-0 place-items-center rounded-full transition-[background-color,color] duration-300",
+                      "grid size-9 shrink-0 place-items-center rounded-full transition-[background-color,color] duration-300",
                       selected ? "bg-cobalt text-paper" : "bg-transparent text-ink/35"
                     )}
                   >
@@ -231,7 +231,7 @@ export default function Services() {
             id="service-panel"
             role="tabpanel"
             aria-labelledby={`service-tab-${active}`}
-            className="relative self-start rounded-[var(--radius-panel)] bg-card p-10 shadow-lift"
+            className="relative self-start overflow-hidden rounded-[var(--radius-panel)] bg-card shadow-lift lg:sticky lg:top-28"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
@@ -241,7 +241,25 @@ export default function Services() {
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               >
-                <ServiceDetail service={current} />
+                <div className="relative overflow-hidden bg-ink px-10 py-9 text-paper">
+                  <current.Icon
+                    className="absolute -right-6 -bottom-8 size-44 text-paper/[0.07]"
+                    strokeWidth={1.25}
+                    aria-hidden="true"
+                  />
+                  <span className="grid size-12 place-items-center rounded-full bg-cobalt text-paper">
+                    <current.Icon className="size-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="mt-5 text-[2rem] leading-tight font-extrabold tracking-[-0.035em]">
+                    {current.name}
+                  </h3>
+                  <p className="mt-2 text-sm text-paper/60">
+                    Service {active + 1} of {services.length}
+                  </p>
+                </div>
+                <div className="p-10">
+                  <ServiceDetail service={current} />
+                </div>
               </motion.div>
             </AnimatePresence>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { LayoutGroup, motion, useReducedMotion } from "motion/react";
 import { Globe, MapPin, Navigation, Phone, Search, Star } from "lucide-react";
 import { cn } from "@/app/lib/utils";
@@ -128,7 +129,7 @@ export default function LocalSearchDemo() {
 
   return (
     <div
-      className="relative w-full overflow-hidden rounded-[var(--radius-panel)] border border-line bg-card shadow-lift"
+      className="relative w-full overflow-hidden rounded-[var(--radius-panel)] border border-ink/15 bg-card shadow-[0_40px_80px_-30px_rgb(11_26_46/0.55),0_16px_32px_-20px_rgb(11_26_46/0.3)] ring-1 ring-white/60"
       role="img"
       aria-label={`Illustration: a local search for "${scenario.query}" where your business moves to the first result.`}
     >
@@ -146,24 +147,37 @@ export default function LocalSearchDemo() {
         </span>
       </div>
 
-      {/* Map */}
-      <div className="street-grid relative h-36 overflow-hidden bg-paper sm:h-44" aria-hidden="true">
-        <svg className="absolute inset-0 size-full" preserveAspectRatio="none" viewBox="0 0 100 100">
-          <path d="M-5 62 C 20 58, 38 70, 60 52 S 92 40, 105 46" fill="none" stroke="white" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 9 }} />
-          <path d="M40 -5 C 44 30, 36 60, 44 105" fill="none" stroke="white" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 7 }} />
-          <path d="M70 -5 L 76 105" fill="none" stroke="white" vectorEffect="non-scaling-stroke" style={{ strokeWidth: 4 }} />
-        </svg>
-        <div className="absolute top-[12%] right-[8%] h-[26%] w-[20%] rounded-md bg-[#d5e2cf]" />
+      {/* Map: satellite-style aerial view */}
+      <div className="relative h-48 overflow-hidden bg-[#4a4e42] sm:h-60" aria-hidden="true">
+        <Image
+          src="/map-aerial.webp"
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 560px"
+          className="object-cover saturate-[0.85]"
+        />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_45%,rgb(11_26_46/0.35))]" />
+
+        <span className="absolute top-3 left-3 rounded-md bg-ink/75 px-2 py-1 text-[0.6875rem] font-semibold text-paper backdrop-blur-sm">
+          Satellite
+        </span>
+        <span className="absolute top-3 right-3 flex flex-col overflow-hidden rounded-md bg-card text-ink shadow-md">
+          <span className="grid size-7 place-items-center border-b border-line text-base leading-none">+</span>
+          <span className="grid size-7 place-items-center text-base leading-none">−</span>
+        </span>
 
         {scenario.others.map((o) => (
           <span
             key={`${scenario.query}-${o.name}`}
             className={cn(
-              "absolute size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-ink-faint transition-opacity duration-500",
+              "absolute grid size-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-[#d14b3c] shadow-md transition-opacity duration-500",
               showResults ? "opacity-100" : "opacity-0"
             )}
             style={{ left: `${o.pin.x}%`, top: `${o.pin.y}%` }}
-          />
+          >
+            <span className="size-1.5 rounded-full bg-white" />
+          </span>
         ))}
 
         <span
@@ -175,15 +189,28 @@ export default function LocalSearchDemo() {
           style={{ left: `${scenario.you.pin.x}%`, top: `${scenario.you.pin.y}%` }}
         >
           {ranked && (
-            <span className="absolute bottom-0 left-1/2 size-6 -translate-x-1/2 translate-y-1/2 rounded-full bg-cobalt/40 animate-ping-soft" />
+            <span className="absolute bottom-0 left-1/2 size-8 -translate-x-1/2 translate-y-1/2 rounded-full bg-cobalt/50 animate-ping-soft" />
           )}
           <MapPin
             className={cn(
-              "relative size-8 drop-shadow-sm transition-colors duration-500",
+              "relative size-10 drop-shadow-[0_4px_6px_rgb(0_0_0/0.45)] transition-colors duration-500",
               ranked ? "fill-cobalt text-white" : "fill-ink-faint text-white"
             )}
             strokeWidth={1.5}
           />
+          <span
+            className={cn(
+              "absolute left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-card px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink shadow-lg transition-[opacity,transform] duration-500",
+              scenario.you.pin.y > 45 ? "bottom-full mb-1" : "top-full mt-1",
+              ranked ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+            )}
+          >
+            {scenario.you.name}
+            <span className="inline-flex items-center gap-0.5 text-ink-soft">
+              {scenario.you.rating.toFixed(1)}
+              <Star className="size-3 fill-marigold text-marigold" />
+            </span>
+          </span>
         </span>
       </div>
 

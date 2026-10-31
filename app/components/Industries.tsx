@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import {
   Briefcase,
@@ -24,7 +25,12 @@ type Industry = {
   headline: string;
   action: string;
   features: string[];
+  photo: string;
+  photoAlt: string;
 };
+
+const unsplash = (id: string) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1400&q=75`;
 
 const industries: Industry[] = [
   {
@@ -34,6 +40,8 @@ const industries: Industry[] = [
     headline: "Fresh food, ten minutes from your door.",
     action: "Reserve a table",
     features: ["Menu with photos", "Online ordering links", "Table reservations", "Hours synced to Google"],
+    photo: unsplash("1517248135467-4c7edcad34c4"),
+    photoAlt: "Warmly lit restaurant dining room with set tables",
   },
   {
     name: "Clinics & healthcare",
@@ -42,6 +50,8 @@ const industries: Industry[] = [
     headline: "Calm, careful treatment close to home.",
     action: "Book an appointment",
     features: ["Treatment pages", "Online booking", "Doctor profiles", "Patient FAQs"],
+    photo: unsplash("1606811971618-4486d14f3f99"),
+    photoAlt: "Modern dental clinic treatment room",
   },
   {
     name: "Law & professional services",
@@ -50,6 +60,8 @@ const industries: Industry[] = [
     headline: "Clear advice from people who know your city.",
     action: "Request a consultation",
     features: ["Practice area pages", "Consultation forms", "Team profiles", "Credentials and reviews"],
+    photo: unsplash("1589829545856-d10d557cf95f"),
+    photoAlt: "Scales of justice statue in a law office",
   },
   {
     name: "Salons & spas",
@@ -58,6 +70,8 @@ const industries: Industry[] = [
     headline: "Look good, feel better, book in seconds.",
     action: "Book a service",
     features: ["Service menu", "Online booking", "Before and after gallery", "Gift vouchers"],
+    photo: unsplash("1560066984-138dadb4c035"),
+    photoAlt: "Bright hair salon with styling chairs and mirrors",
   },
   {
     name: "Home services & trades",
@@ -66,6 +80,8 @@ const industries: Industry[] = [
     headline: "Same-day repairs across your area.",
     action: "Get a quote",
     features: ["Service area pages", "Quote request forms", "One-tap emergency call", "Job photo gallery"],
+    photo: unsplash("1581578731548-c64695cc6952"),
+    photoAlt: "Service professional working in a home",
   },
   {
     name: "Real estate",
@@ -74,6 +90,8 @@ const industries: Industry[] = [
     headline: "Homes for sale and rent in the neighbourhoods you know.",
     action: "View listings",
     features: ["Property listings", "Area guides", "Valuation requests", "Agent profiles"],
+    photo: unsplash("1560518883-ce09059eeffa"),
+    photoAlt: "Modern family house exterior",
   },
   {
     name: "Gyms & studios",
@@ -82,6 +100,8 @@ const industries: Industry[] = [
     headline: "Classes every day, five minutes away.",
     action: "Start a free trial",
     features: ["Class timetable", "Membership sign-up", "Trainer profiles", "Trial offers"],
+    photo: unsplash("1534438327276-14e5300c3a48"),
+    photoAlt: "Gym floor with weights and training equipment",
   },
   {
     name: "Retail & local shops",
@@ -90,8 +110,36 @@ const industries: Industry[] = [
     headline: "Shop online, collect in store today.",
     action: "Shop now",
     features: ["Product catalogue", "Click and collect", "WhatsApp orders", "Store finder"],
+    photo: unsplash("1441986300917-64674bd600d8"),
+    photoAlt: "Local clothing shop interior with racks",
   },
 ];
+
+// Falls back to a designed panel if the photo cannot load.
+function IndustryPhoto({ industry }: { industry: Industry }) {
+  const [failed, setFailed] = useState<string | null>(null);
+  if (failed === industry.photo) {
+    return (
+      <div className="absolute inset-0 -z-20 bg-[radial-gradient(circle_at_80%_20%,var(--color-cobalt),transparent_55%),linear-gradient(135deg,#13243b,var(--color-ink))]">
+        <industry.Icon
+          className="absolute -right-8 -bottom-10 size-72 text-paper/10"
+          strokeWidth={1}
+          aria-hidden="true"
+        />
+      </div>
+    );
+  }
+  return (
+    <Image
+      src={industry.photo}
+      alt={industry.photoAlt}
+      fill
+      sizes="(max-width: 1024px) 100vw, 640px"
+      onError={() => setFailed(industry.photo)}
+      className="-z-20 object-cover animate-[photo-settle_1.2s_var(--ease-out-soft)_forwards]"
+    />
+  );
+}
 
 export default function Industries() {
   const [active, setActive] = useState(0);
@@ -170,42 +218,56 @@ export default function Industries() {
           <AnimatePresence mode="wait" initial={false}>
             <motion.div
               key={current.name}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-              className="p-6 sm:p-9"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="flex items-center justify-between gap-4" aria-hidden="true">
-                <span className="flex items-center gap-2 font-bold tracking-[-0.02em]">
-                  <span className="grid size-8 place-items-center rounded-lg bg-ink text-paper">
-                    <current.Icon className="size-4" />
+              {/* Photo hero of the sample site */}
+              <div className="relative isolate flex min-h-[19rem] flex-col justify-between overflow-hidden p-6 text-paper sm:min-h-[22rem] sm:p-8">
+                <IndustryPhoto industry={current} />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-ink/90 via-ink/45 to-ink/30" />
+
+                <div className="flex items-center justify-between gap-4" aria-hidden="true">
+                  <span className="flex items-center gap-2 font-bold tracking-[-0.02em]">
+                    <span className="grid size-8 place-items-center rounded-lg bg-paper text-ink">
+                      <current.Icon className="size-4" />
+                    </span>
+                    {current.domain.replace(".com", "").replace("your", "Your ")}
                   </span>
-                  {current.domain.replace(".com", "").replace("your", "Your ")}
-                </span>
-                <span className="hidden gap-4 text-sm text-ink-soft sm:flex">
-                  <span>Services</span>
-                  <span>Reviews</span>
-                  <span>Contact</span>
-                </span>
+                  <span className="hidden gap-4 text-sm text-paper/80 sm:flex">
+                    <span>Services</span>
+                    <span>Reviews</span>
+                    <span>Contact</span>
+                  </span>
+                </div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 14 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <p className="max-w-[20ch] text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.05] font-extrabold tracking-[-0.04em]">
+                    {current.headline}
+                  </p>
+                  <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <span className="inline-flex h-11 items-center rounded-full bg-cobalt px-5 text-[0.9375rem] font-semibold text-paper shadow-press">
+                      {current.action}
+                    </span>
+                    <span className="inline-flex items-center gap-1 text-sm text-paper/85">
+                      4.9 <span className="text-marigold">★★★★★</span> local reviews
+                    </span>
+                  </div>
+                </motion.div>
               </div>
 
-              <p className="mt-10 max-w-[22ch] text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.05] font-extrabold tracking-[-0.04em]">
-                {current.headline}
-              </p>
-              <div className="mt-6 flex flex-wrap items-center gap-3">
-                <span className="inline-flex h-11 items-center rounded-full bg-cobalt px-5 text-[0.9375rem] font-semibold text-paper shadow-press">
-                  {current.action}
-                </span>
-                <span className="text-sm text-ink-soft">4.9 from local reviews</span>
-              </div>
-
-              <ul className="mt-10 grid grid-cols-2 gap-3">
+              <ul className="grid grid-cols-2 gap-3 p-5 sm:p-6">
                 {current.features.map((feature) => (
                   <li
                     key={feature}
-                    className="rounded-xl border border-line bg-card px-4 py-4 text-[0.9375rem] font-medium"
+                    className="flex items-center gap-2.5 rounded-xl border border-line bg-card px-4 py-3.5 text-[0.9375rem] font-medium"
                   >
+                    <span className="size-1.5 shrink-0 rounded-full bg-cobalt" aria-hidden="true" />
                     {feature}
                   </li>
                 ))}
