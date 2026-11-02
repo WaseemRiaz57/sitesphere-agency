@@ -135,10 +135,26 @@ test.describe("homepage", () => {
     });
     const page = await context.newPage();
     await page.goto("/");
+    // The loop only runs while the panel is on screen (it sits below the fold on phones).
+    await page.locator("#top [role=img]").scrollIntoViewIfNeeded();
     const query = page.locator("#top [role=img] p").first();
     await expect(query).toHaveText("biryani open now", { timeout: 5000 });
     await expect(query).not.toHaveText("biryani open now", { timeout: 12000 });
     await context.close();
+  });
+
+  test("hero search panel keeps a fixed height through its cycle", async ({ page }) => {
+    await page.goto("/");
+    const panel = page.locator("#top [role=img]");
+    await panel.scrollIntoViewIfNeeded();
+    const heights = new Set<number>();
+    for (let i = 0; i < 24; i++) {
+      // offsetHeight ignores the entrance tilt, so only real layout changes count.
+      heights.add(await panel.evaluate((el) => (el as HTMLElement).offsetHeight));
+      await page.waitForTimeout(250);
+    }
+    expect([...heights], `heights seen: ${[...heights].join(", ")}`).toHaveLength(1);
+    await expect(panel.locator(".animate-pulse")).toHaveCount(0);
   });
 
   test("UGC section lets visitors pick an example ad", async ({ page }) => {

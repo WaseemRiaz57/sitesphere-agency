@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
-import { LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { LayoutGroup, motion, useInView, useReducedMotion } from "motion/react";
 import { Globe, MapPin, Navigation, Phone, Search, Star } from "lucide-react";
 import { cn } from "@/app/lib/utils";
 
@@ -87,20 +87,34 @@ function Stars({ rating }: { rating: number }) {
 
 export default function LocalSearchDemo() {
   const reduceMotion = useReducedMotion();
+  const panelRef = useRef<HTMLDivElement>(null);
+  // Only run while the panel is on screen, so phone visitors who scroll to it
+  // see the cycle from a clean state instead of halfway through a reset.
+  const inView = useInView(panelRef, { amount: 0.35 });
+
+  // Start fully loaded: the first query is typed and its results are showing.
   const [index, setIndex] = useState(0);
-  const [typed, setTyped] = useState(0);
-  const [phase, setPhase] = useState<Phase>("typing");
+  const [typed, setTyped] = useState(scenarios[0].query.length);
+  const [phase, setPhase] = useState<Phase>("results");
+  // Results shown in the list. While the next query is typed, the previous
+  // results stay visible (dimmed) rather than being replaced by placeholders.
+  const [listIndex, setListIndex] = useState(0);
 
   const scenario = scenarios[index];
+  const shown = scenarios[listIndex];
 
   // One orchestrated loop: type the query, show results, then promote "your" listing to #1.
   useEffect(() => {
+    if (!inView) return;
     let timer: ReturnType<typeof setTimeout>;
     if (phase === "typing") {
       if (typed < scenario.query.length) {
         timer = setTimeout(() => setTyped((t) => t + 1), 60);
       } else {
-        timer = setTimeout(() => setPhase("results"), 350);
+        timer = setTimeout(() => {
+          setListIndex(index);
+          setPhase("results");
+        }, 350);
       }
     } else if (phase === "results") {
       timer = setTimeout(() => setPhase("ranked"), 1100);
@@ -112,23 +126,25 @@ export default function LocalSearchDemo() {
       }, 3600);
     }
     return () => clearTimeout(timer);
-  }, [phase, typed, scenario.query.length]);
+  }, [phase, typed, index, scenario.query.length, inView]);
 
   // With "reduce motion" on, the loop still plays but rows fade instead of sliding.
   const calm = reduceMotion ?? false;
   const effectivePhase: Phase = phase;
   const queryText = scenario.query.slice(0, typed);
-  const ranked = effectivePhase === "ranked";
-  const showResults = effectivePhase !== "typing";
+  const typing = effectivePhase === "typing";
+  // While typing, the previous search stays in its finished (ranked) order.
+  const ranked = effectivePhase === "ranked" || typing;
 
   const listings = useMemo(() => {
-    const you = { ...scenario.you, isYou: true };
-    const rest = scenario.others.map((o) => ({ ...o, isYou: false }));
+    const you = { ...shown.you, isYou: true };
+    const rest = shown.others.map((o) => ({ ...o, isYou: false }));
     return ranked ? [you, ...rest] : [...rest, you];
-  }, [scenario, ranked]);
+  }, [shown, ranked]);
 
   return (
     <div
+      ref={panelRef}
       className="relative w-full overflow-hidden rounded-[var(--radius-panel)] border border-ink/15 bg-card shadow-[0_40px_80px_-30px_rgb(11_26_46/0.55),0_16px_32px_-20px_rgb(11_26_46/0.3)] ring-1 ring-white/60"
       role="img"
       aria-label={`Illustration: a local search for "${scenario.query}" where your business moves to the first result.`}
@@ -167,12 +183,12 @@ export default function LocalSearchDemo() {
           <span className="grid size-7 place-items-center text-base leading-none">−</span>
         </span>
 
-        {scenario.others.map((o) => (
+        {shown.others.map((o) => (
           <span
-            key={`${scenario.query}-${o.name}`}
+            key={`${shown.query}-${o.name}`}
             className={cn(
               "absolute grid size-5 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-[#d14b3c] shadow-md transition-opacity duration-500",
-              showResults ? "opacity-100" : "opacity-0"
+              typing ? "opacity-40" : "opacity-100"
             )}
             style={{ left: `${o.pin.x}%`, top: `${o.pin.y}%` }}
           >
@@ -183,31 +199,31 @@ export default function LocalSearchDemo() {
         <span
           className={cn(
             "absolute -translate-x-1/2 -translate-y-full transition-[opacity,transform] duration-500 ease-[var(--ease-out-soft)]",
-            showResults ? "opacity-100" : "opacity-0",
-            ranked ? "scale-110" : "scale-90"
+            typing ? "opacity-40" : "opacity-100",
+            ranked && !typing ? "scale-110" : "scale-90"
           )}
-          style={{ left: `${scenario.you.pin.x}%`, top: `${scenario.you.pin.y}%` }}
+          style={{ left: `${shown.you.pin.x}%`, top: `${shown.you.pin.y}%` }}
         >
-          {ranked && (
+          {ranked && !typing && (
             <span className="absolute bottom-0 left-1/2 size-8 -translate-x-1/2 translate-y-1/2 rounded-full bg-cobalt/50 animate-ping-soft" />
           )}
           <MapPin
             className={cn(
               "relative size-10 drop-shadow-[0_4px_6px_rgb(0_0_0/0.45)] transition-colors duration-500",
-              ranked ? "fill-cobalt text-white" : "fill-ink-faint text-white"
+              ranked && !typing ? "fill-cobalt text-white" : "fill-ink-faint text-white"
             )}
             strokeWidth={1.5}
           />
           <span
             className={cn(
               "absolute left-1/2 flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-card px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-ink shadow-lg transition-[opacity,transform] duration-500",
-              scenario.you.pin.y > 45 ? "bottom-full mb-1" : "top-full mt-1",
-              ranked ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
+              shown.you.pin.y > 45 ? "bottom-full mb-1" : "top-full mt-1",
+              ranked && !typing ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
             )}
           >
-            {scenario.you.name}
+            {shown.you.name}
             <span className="inline-flex items-center gap-0.5 text-ink-soft">
-              {scenario.you.rating.toFixed(1)}
+              {shown.you.rating.toFixed(1)}
               <Star className="size-3 fill-marigold text-marigold" />
             </span>
           </span>
@@ -216,12 +232,17 @@ export default function LocalSearchDemo() {
 
       {/* Results */}
       <LayoutGroup>
-        <ol className="relative min-h-[17.5rem] divide-y divide-line px-2 py-1.5 sm:min-h-[18.5rem]" aria-hidden="true">
-          {showResults &&
-            listings.map((item, i) => (
+        <ol
+          className={cn(
+            "relative h-[22rem] divide-y divide-line overflow-hidden px-2 py-1.5 transition-opacity duration-300",
+            typing && "opacity-45"
+          )}
+          aria-hidden="true"
+        >
+          {listings.map((item, i) => (
               <motion.li
-                key={`${scenario.query}-${item.name}`}
-                layout={!calm}
+                key={`${shown.query}-${item.name}`}
+                layout={calm ? false : "position"}
                 initial={calm ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -252,11 +273,12 @@ export default function LocalSearchDemo() {
                   <span className="mt-0.5 flex flex-wrap items-center gap-x-2 text-[0.8125rem] text-ink-soft">
                     <Stars rating={item.rating} />
                     <span className="tabular-nums">({item.reviews.toLocaleString("en-US")})</span>
-                    <span>{scenario.category}</span>
+                    <span>{shown.category}</span>
                     <span className="font-medium text-[#1f7a4a]">Open</span>
                   </span>
                   {item.isYou && ranked && (
                     <motion.span
+                      key={`${shown.query}-actions`}
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       transition={{ duration: 0.35, delay: 0.25 }}
@@ -280,13 +302,6 @@ export default function LocalSearchDemo() {
                 </span>
               </motion.li>
             ))}
-          {!showResults && (
-            <li className="flex h-full flex-col gap-3 px-3 py-4">
-              {[0, 1, 2, 3].map((n) => (
-                <span key={n} className="h-12 animate-pulse rounded-xl bg-paper-deep/70" />
-              ))}
-            </li>
-          )}
         </ol>
       </LayoutGroup>
     </div>
