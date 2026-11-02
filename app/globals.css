@@ -122,6 +122,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
+  /* Never let a wide child widen the phone layout viewport. */
+  overflow-x: clip;
 }
 
 body {
@@ -169,13 +171,22 @@ body {
   mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
 
+/*
+  Phones with "Remove animations" / "Reduce motion" (often switched on by battery
+  savers) still get the gentle, meaningful motion: the hero search loop and the
+  marquee keep playing, slower. Only zooms, pulses and smooth scrolling are dropped.
+*/
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-marquee {
+    animation-duration: 90s;
+  }
+
+  .animate-ping-soft,
+  [class*="photo-settle"] {
+    animation: none;
   }
 }

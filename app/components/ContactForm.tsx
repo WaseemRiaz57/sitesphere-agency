@@ -58,8 +58,8 @@ export default function ContactForm() {
   };
 
   return (
-    <section id="contact" aria-labelledby="contact-title" className="bg-ink py-24 text-paper sm:py-32">
-      <div className="mx-auto grid max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:px-8">
+    <section id="contact" aria-labelledby="contact-title" className="bg-ink py-16 text-paper sm:py-32">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20 lg:px-8">
         <div>
           <h2
             id="contact-title"

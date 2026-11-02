@@ -45,7 +45,7 @@ export default function Engagements() {
     <section
       id="engagements"
       aria-labelledby="engagements-title"
-      className="bg-paper-deep/60 py-24 sm:py-32"
+      className="bg-paper-deep/60 py-16 sm:py-32"
     >
       <div className="mx-auto max-w-[76rem] px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">

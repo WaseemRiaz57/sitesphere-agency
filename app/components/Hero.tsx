@@ -15,7 +15,11 @@ export default function Hero() {
   const reduceMotion = useReducedMotion();
   const rise = (delay: number) =>
     reduceMotion
-      ? {}
+      ? {
+          initial: { opacity: 0 },
+          animate: { opacity: 1 },
+          transition: { duration: 0.6, delay },
+        }
       : {
           initial: { opacity: 0, y: 24 },
           animate: { opacity: 1, y: 0 },
@@ -26,14 +30,14 @@ export default function Hero() {
     <section
       id="top"
       aria-labelledby="hero-title"
-      className="relative isolate overflow-hidden pt-28 pb-20 sm:pt-36 lg:pt-40 lg:pb-28"
+      className="relative isolate overflow-hidden pt-24 pb-16 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-28"
     >
       <div
         aria-hidden="true"
         className="street-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_70%_40%,#000_20%,transparent_75%)]"
       />
 
-      <div className="mx-auto grid max-w-[76rem] items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.08fr_1fr] lg:gap-16 lg:px-8">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.08fr_1fr] lg:gap-16 lg:px-8">
         <div>
           <motion.h1
             id="hero-title"
@@ -48,14 +52,14 @@ export default function Hero() {
 
           <motion.p
             {...rise(0.12)}
-            className="mt-8 max-w-[34rem] text-pretty text-lg leading-relaxed text-ink-soft sm:text-xl"
+            className="mt-6 max-w-[34rem] text-pretty text-[1.0625rem] leading-relaxed text-ink-soft sm:mt-8 sm:text-xl"
           >
             SiteSphere is a web design and marketing agency for local businesses.
             We build fast, custom websites, rank you in local search, and run UGC
             and paid ads that turn attention into calls and bookings.
           </motion.p>
 
-          <motion.div {...rise(0.22)} className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <motion.div {...rise(0.22)} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
             <LinkButton href="#contact" size="lg">
               Book a free strategy call
             </LinkButton>
@@ -66,7 +70,7 @@ export default function Hero() {
 
           <motion.ul
             {...rise(0.32)}
-            className="mt-10 flex flex-col gap-2.5 text-[0.9375rem] text-ink-soft sm:flex-row sm:flex-wrap sm:gap-x-6"
+            className="mt-8 flex flex-col gap-2.5 text-[0.9375rem] text-ink-soft sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-x-6"
           >
             {commitments.map((item) => (
               <li key={item} className="flex items-center gap-2">

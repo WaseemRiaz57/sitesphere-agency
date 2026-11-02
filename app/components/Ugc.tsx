@@ -117,9 +117,9 @@ export default function Ugc() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section id="ugc" aria-labelledby="ugc-title" className="overflow-hidden py-24 sm:py-32">
+    <section id="ugc" aria-labelledby="ugc-title" className="overflow-hidden py-16 sm:py-32">
       <div className="mx-auto max-w-[76rem] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
+        <div className="grid grid-cols-1 items-end gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16">
           <h2
             id="ugc-title"
             className="text-balance text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.04em]"
@@ -160,7 +160,7 @@ export default function Ugc() {
           <span className="hidden sm:inline">Tap</span> one to play it.
         </p>
 
-        <div className="mt-20 grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
+        <div className="mt-20 grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-20">
           <div>
             <h3 className="text-2xl font-extrabold tracking-[-0.03em] sm:text-[1.75rem]">
               Formats that work for local businesses

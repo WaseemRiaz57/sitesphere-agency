@@ -8,12 +8,15 @@ import {
   LayoutTemplate,
   MapPinned,
   Megaphone,
+  Plus,
   MousePointerClick,
   Store,
   Video,
   type LucideIcon,
 } from "lucide-react";
+import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { cn } from "@/app/lib/utils";
+import { Accordion } from "./ui/accordion";
 
 type Service = {
   name: string;
@@ -170,9 +173,9 @@ export default function Services() {
   const current = services[active];
 
   return (
-    <section id="services" aria-labelledby="services-title" className="py-24 sm:py-32">
+    <section id="services" aria-labelledby="services-title" className="py-16 sm:py-32">
       <div className="mx-auto max-w-[76rem] px-4 sm:px-6 lg:px-8">
-        <div className="grid items-end gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
+        <div className="grid grid-cols-1 items-end gap-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16">
           <h2
             id="services-title"
             className="text-balance text-[clamp(2rem,4.4vw,3.5rem)] leading-[1.02] font-extrabold tracking-[-0.04em]"
@@ -187,7 +190,7 @@ export default function Services() {
         </div>
 
         {/* Desktop: list on the left, details on the right */}
-        <div className="mt-14 hidden gap-12 lg:grid lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <div className="mt-14 hidden gap-12 lg:grid grid-cols-1 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
           <div role="tablist" aria-label="Services" aria-orientation="vertical" className="flex flex-col">
             {services.map((service, i) => {
               const selected = i === active;
@@ -265,20 +268,39 @@ export default function Services() {
           </div>
         </div>
 
-        {/* Mobile and tablet: every service stacked */}
-        <div className="mt-12 flex flex-col gap-4 lg:hidden">
+        {/* Mobile and tablet: tap a service to open it */}
+        <Accordion
+          type="single"
+          collapsible
+          defaultValue={services[0].name}
+          className="mt-10 flex flex-col gap-3 lg:hidden"
+        >
           {services.map((service) => (
-            <article key={service.name} className="rounded-[var(--radius-panel)] bg-card p-6 sm:p-8">
-              <h3 className="mb-5 flex items-center gap-3 text-xl font-bold tracking-[-0.025em]">
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-cobalt text-paper">
-                  <service.Icon className="size-[1.125rem]" aria-hidden="true" />
-                </span>
-                {service.name}
-              </h3>
-              <ServiceDetail service={service} />
-            </article>
+            <AccordionPrimitive.Item
+              key={service.name}
+              value={service.name}
+              className="group/item overflow-hidden rounded-[var(--radius-panel)] bg-card shadow-[0_1px_0_var(--color-line)] transition-shadow data-[state=open]:shadow-lift"
+            >
+              <AccordionPrimitive.Header>
+                <AccordionPrimitive.Trigger className="flex w-full items-center gap-3 px-5 py-4 text-left text-lg font-bold tracking-[-0.025em] transition-colors group-data-[state=open]/item:bg-ink group-data-[state=open]/item:text-paper sm:px-7 sm:py-5">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-cobalt text-paper">
+                    <service.Icon className="size-[1.125rem]" aria-hidden="true" />
+                  </span>
+                  <span className="flex-1">{service.name}</span>
+                  <Plus
+                    className="size-5 shrink-0 transition-transform duration-300 group-data-[state=open]/item:rotate-45"
+                    aria-hidden="true"
+                  />
+                </AccordionPrimitive.Trigger>
+              </AccordionPrimitive.Header>
+              <AccordionPrimitive.Content className="overflow-hidden data-[state=closed]:animate-[accordion-up_220ms_ease-out] data-[state=open]:animate-[accordion-down_280ms_var(--ease-out-soft)]">
+                <div className="px-5 pt-5 pb-6 sm:px-7">
+                  <ServiceDetail service={service} />
+                </div>
+              </AccordionPrimitive.Content>
+            </AccordionPrimitive.Item>
           ))}
-        </div>
+        </Accordion>
       </div>
     </section>
   );

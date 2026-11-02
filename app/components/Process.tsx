@@ -36,7 +36,7 @@ export default function Process() {
   useGSAP(
     () => {
       const mm = gsap.matchMedia();
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add("(min-width: 0px)", () => {
         // The rail fills as the reader scrolls through the steps.
         gsap.fromTo(
           ".process-rail-fill",
@@ -67,10 +67,6 @@ export default function Process() {
           });
         });
       });
-      mm.add("(prefers-reduced-motion: reduce)", () => {
-        gsap.set(".process-rail-fill", { scaleY: 1 });
-        gsap.utils.toArray<HTMLElement>(".process-step").forEach((s) => s.classList.add("is-active"));
-      });
     },
     { scope }
   );
@@ -80,9 +76,9 @@ export default function Process() {
       ref={scope}
       id="process"
       aria-labelledby="process-title"
-      className="border-t border-line py-24 sm:py-32"
+      className="border-t border-line py-16 sm:py-32"
     >
-      <div className="mx-auto grid max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20 lg:px-8">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20 lg:px-8">
         <div className="lg:sticky lg:top-32 lg:self-start">
           <h2
             id="process-title"

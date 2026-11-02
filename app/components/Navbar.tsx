@@ -67,6 +67,9 @@ export default function Navbar() {
           <LinkButton href="#contact" className="hidden sm:inline-flex">
             Book a strategy call
           </LinkButton>
+          <LinkButton href="#contact" className="h-10 px-4 text-sm sm:hidden">
+            Book a call
+          </LinkButton>
 
           <Sheet>
             <SheetTrigger

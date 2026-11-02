@@ -25,8 +25,8 @@ const principles: { title: string; body: string; Icon: LucideIcon }[] = [
 
 export default function About() {
   return (
-    <section id="about" aria-labelledby="about-title" className="py-24 sm:py-32">
-      <div className="mx-auto grid max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-20 lg:px-8">
+    <section id="about" aria-labelledby="about-title" className="py-16 sm:py-32">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:gap-20 lg:px-8">
         <div>
           <h2
             id="about-title"

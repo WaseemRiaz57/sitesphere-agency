@@ -47,12 +47,12 @@ export default function Faq() {
   };
 
   return (
-    <section id="faq" aria-labelledby="faq-title" className="py-24 sm:py-32">
+    <section id="faq" aria-labelledby="faq-title" className="py-16 sm:py-32">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}
       />
-      <div className="mx-auto grid max-w-[76rem] gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20 lg:px-8">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] gap-12 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-20 lg:px-8">
         <div>
           <h2
             id="faq-title"

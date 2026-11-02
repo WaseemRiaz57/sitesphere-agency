@@ -95,7 +95,6 @@ export default function LocalSearchDemo() {
 
   // One orchestrated loop: type the query, show results, then promote "your" listing to #1.
   useEffect(() => {
-    if (reduceMotion) return;
     let timer: ReturnType<typeof setTimeout>;
     if (phase === "typing") {
       if (typed < scenario.query.length) {
@@ -113,11 +112,12 @@ export default function LocalSearchDemo() {
       }, 3600);
     }
     return () => clearTimeout(timer);
-  }, [phase, typed, scenario.query.length, reduceMotion]);
+  }, [phase, typed, scenario.query.length]);
 
-  const showFinal = reduceMotion ?? false;
-  const effectivePhase: Phase = showFinal ? "ranked" : phase;
-  const queryText = showFinal ? scenario.query : scenario.query.slice(0, typed);
+  // With "reduce motion" on, the loop still plays but rows fade instead of sliding.
+  const calm = reduceMotion ?? false;
+  const effectivePhase: Phase = phase;
+  const queryText = scenario.query.slice(0, typed);
   const ranked = effectivePhase === "ranked";
   const showResults = effectivePhase !== "typing";
 
@@ -138,7 +138,7 @@ export default function LocalSearchDemo() {
         <Search className="size-4 shrink-0 text-ink-faint" aria-hidden="true" />
         <p className="min-w-0 flex-1 truncate text-[0.9375rem] text-ink" aria-hidden="true">
           {queryText}
-          {!showFinal && effectivePhase === "typing" && (
+          {effectivePhase === "typing" && (
             <span className="caret ml-px inline-block h-[1.05em] w-[2px] translate-y-[3px] bg-cobalt" />
           )}
         </p>
@@ -148,7 +148,7 @@ export default function LocalSearchDemo() {
       </div>
 
       {/* Map: satellite-style aerial view */}
-      <div className="relative h-48 overflow-hidden bg-[#4a4e42] sm:h-60" aria-hidden="true">
+      <div className="relative h-44 overflow-hidden bg-[#4a4e42] sm:h-60" aria-hidden="true">
         <Image
           src="/map-aerial.webp"
           alt=""
@@ -221,8 +221,8 @@ export default function LocalSearchDemo() {
             listings.map((item, i) => (
               <motion.li
                 key={`${scenario.query}-${item.name}`}
-                layout={!showFinal}
-                initial={showFinal ? false : { opacity: 0, y: 8 }}
+                layout={!calm}
+                initial={calm ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   layout: { type: "spring", stiffness: 260, damping: 30 },
@@ -257,7 +257,7 @@ export default function LocalSearchDemo() {
                   </span>
                   {item.isYou && ranked && (
                     <motion.span
-                      initial={showFinal ? false : { opacity: 0, height: 0 }}
+                      initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       transition={{ duration: 0.35, delay: 0.25 }}
                       className="flex gap-1.5 overflow-hidden pt-2.5"

@@ -149,9 +149,9 @@ export default function Industries() {
     <section
       id="industries"
       aria-labelledby="industries-title"
-      className="bg-ink py-24 text-paper sm:py-32"
+      className="bg-ink py-16 text-paper sm:py-32"
     >
-      <div className="mx-auto grid max-w-[76rem] items-start gap-14 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:px-8">
+      <div className="mx-auto grid grid-cols-1 max-w-[76rem] items-start gap-8 px-4 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16 lg:px-8">
         <div>
           <h2
             id="industries-title"
@@ -166,7 +166,11 @@ export default function Industries() {
             looks like.
           </p>
 
-          <div className="mt-10 flex flex-wrap gap-2" role="group" aria-label="Choose an industry">
+          <div
+            className="-mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:mt-10 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0"
+            role="group"
+            aria-label="Choose an industry"
+          >
             {industries.map((industry, i) => {
               const selected = i === active;
               return (
@@ -176,7 +180,7 @@ export default function Industries() {
                   aria-pressed={selected}
                   onClick={() => setActive(i)}
                   className={cn(
-                    "inline-flex h-11 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium transition-[background-color,color,border-color] duration-200",
+                    "inline-flex h-11 shrink-0 items-center gap-2 rounded-full border px-4 text-[0.9375rem] font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-200 active:scale-95",
                     selected
                       ? "border-paper bg-paper text-ink"
                       : "border-night-line text-paper/75 hover:border-paper/40 hover:text-paper"
@@ -195,7 +199,7 @@ export default function Industries() {
             rel="noreferrer"
             variant="inverse"
             size="lg"
-            className="mt-10"
+            className="mt-10 hidden lg:inline-flex"
           >
             Talk to us about your business
           </LinkButton>
@@ -275,6 +279,17 @@ export default function Industries() {
             </motion.div>
           </AnimatePresence>
         </div>
+
+        <LinkButton
+          href={whatsappHref(`Hello SiteSphere! I run a business in ${current.name.toLowerCase()} and I'd like to talk about a website.`)}
+          target="_blank"
+          rel="noreferrer"
+          variant="inverse"
+          size="lg"
+          className="w-full lg:hidden"
+        >
+          Talk to us about your business
+        </LinkButton>
       </div>
     </section>
   );

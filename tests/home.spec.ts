@@ -15,10 +15,15 @@ test.describe("homepage", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText("Be the first name");
     await expect(page.getByRole("link", { name: "Book a free strategy call" })).toBeVisible();
 
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - window.innerWidth
-    );
-    expect(overflow).toBeLessThanOrEqual(0);
+    // A wide element makes phones zoom the whole page out, so the layout width
+    // must match the device width exactly.
+    const deviceWidth = page.viewportSize()!.width;
+    const layout = await page.evaluate(() => ({
+      inner: window.innerWidth,
+      scroll: document.documentElement.scrollWidth,
+    }));
+    expect(layout.inner).toBe(deviceWidth);
+    expect(layout.scroll).toBeLessThanOrEqual(deviceWidth);
 
     // Scroll the whole page so scroll-driven code runs.
     await page.evaluate(async () => {
@@ -62,12 +67,21 @@ test.describe("homepage", () => {
   });
 
   test("service list switches the detail panel", async ({ page }, testInfo) => {
-    test.skip(isMobile(testInfo.project.name), "Mobile shows every service stacked");
+    test.skip(isMobile(testInfo.project.name), "Mobile uses the accordion instead");
     await page.goto("/");
     const tab = page.getByRole("tab", { name: "Google Business Profile" });
     await tab.click();
     await expect(tab).toHaveAttribute("aria-selected", "true");
     await expect(page.getByRole("tabpanel")).toContainText("Review request system");
+  });
+
+  test("services open one at a time on mobile", async ({ page }, testInfo) => {
+    test.skip(!isMobile(testInfo.project.name), "Desktop uses the tab list");
+    await page.goto("/");
+    const trigger = page.locator("#services").getByRole("button", { name: "UGC video ads" });
+    await trigger.click();
+    await expect(trigger).toHaveAttribute("aria-expanded", "true");
+    await expect(page.locator("#services").getByText("Hook and script writing")).toBeVisible();
   });
 
   test("FAQ accordion opens and closes", async ({ page }) => {
@@ -114,6 +128,19 @@ test.describe("homepage", () => {
     const res = await page.goto("/demo/dental");
     expect(res?.status()).toBe(404);
   });
+  test("hero search keeps animating when reduce motion is on", async ({ browser }, testInfo) => {
+    const context = await browser.newContext({
+      ...testInfo.project.use,
+      reducedMotion: "reduce",
+    });
+    const page = await context.newPage();
+    await page.goto("/");
+    const query = page.locator("#top [role=img] p").first();
+    await expect(query).toHaveText("biryani open now", { timeout: 5000 });
+    await expect(query).not.toHaveText("biryani open now", { timeout: 12000 });
+    await context.close();
+  });
+
   test("UGC section lets visitors pick an example ad", async ({ page }) => {
     await page.goto("/");
     const section = page.locator("#ugc");
