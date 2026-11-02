@@ -99,6 +99,10 @@ export default function LocalSearchDemo() {
   // Results shown in the list. While the next query is typed, the previous
   // results stay visible (dimmed) rather than being replaced by placeholders.
   const [listIndex, setListIndex] = useState(0);
+  // The first results arrive with the HTML already visible; only later
+  // searches animate in. Otherwise a slow phone shows an empty list until
+  // the JavaScript has downloaded.
+  const [hasCycled, setHasCycled] = useState(false);
 
   const scenario = scenarios[index];
   const shown = scenarios[listIndex];
@@ -113,6 +117,7 @@ export default function LocalSearchDemo() {
       } else {
         timer = setTimeout(() => {
           setListIndex(index);
+          setHasCycled(true);
           setPhase("results");
         }, 350);
       }
@@ -145,6 +150,9 @@ export default function LocalSearchDemo() {
   return (
     <div
       ref={panelRef}
+      data-phase={phase}
+      data-in-view={inView}
+      data-reduce-motion={calm}
       className="relative w-full overflow-hidden rounded-[var(--radius-panel)] border border-ink/15 bg-card shadow-[0_40px_80px_-30px_rgb(11_26_46/0.55),0_16px_32px_-20px_rgb(11_26_46/0.3)] ring-1 ring-white/60"
       role="img"
       aria-label={`Illustration: a local search for "${scenario.query}" where your business moves to the first result.`}
@@ -243,7 +251,7 @@ export default function LocalSearchDemo() {
               <motion.li
                 key={`${shown.query}-${item.name}`}
                 layout={calm ? false : "position"}
-                initial={calm ? { opacity: 0 } : { opacity: 0, y: 8 }}
+                initial={!hasCycled ? false : calm ? { opacity: 0 } : { opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   layout: { type: "spring", stiffness: 260, damping: 30 },
@@ -279,7 +287,7 @@ export default function LocalSearchDemo() {
                   {item.isYou && ranked && (
                     <motion.span
                       key={`${shown.query}-actions`}
-                      initial={{ opacity: 0, height: 0 }}
+                      initial={hasCycled ? { opacity: 0, height: 0 } : false}
                       animate={{ opacity: 1, height: "auto" }}
                       transition={{ duration: 0.35, delay: 0.25 }}
                       className="flex gap-1.5 overflow-hidden pt-2.5"

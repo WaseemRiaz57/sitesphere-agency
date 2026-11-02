@@ -113,6 +113,37 @@
   }
 }
 
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes hero-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) rotate(1.5deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes caret {
   50% {
     opacity: 0;
@@ -163,6 +194,14 @@ body {
   background-size: 56px 56px;
 }
 
+.hero-rise {
+  animation: hero-rise 0.8s var(--ease-out-soft) both;
+}
+
+.hero-panel-in {
+  animation: hero-panel-in 1s var(--ease-out-soft) both;
+}
+
 .caret {
   animation: caret 1s steps(1) infinite;
 }
@@ -188,5 +227,19 @@ body {
   .animate-ping-soft,
   [class*="photo-settle"] {
     animation: none;
+  }
+
+  .hero-rise,
+  .hero-panel-in {
+    animation-name: fade-in;
+  }
+}
+
+@keyframes check-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(200%);
   }
 }

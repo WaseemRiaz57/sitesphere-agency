@@ -1,6 +1,3 @@
-"use client";
-
-import { motion, useReducedMotion } from "motion/react";
 import { Check } from "lucide-react";
 import { LinkButton } from "./ui/button";
 import LocalSearchDemo from "./LocalSearchDemo";
@@ -12,19 +9,11 @@ const commitments = [
 ];
 
 export default function Hero() {
-  const reduceMotion = useReducedMotion();
-  const rise = (delay: number) =>
-    reduceMotion
-      ? {
-          initial: { opacity: 0 },
-          animate: { opacity: 1 },
-          transition: { duration: 0.6, delay },
-        }
-      : {
-          initial: { opacity: 0, y: 24 },
-          animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] as const },
-        };
+  // Entrance animations are plain CSS so they start with the HTML, even on a
+  // slow phone connection before any JavaScript has loaded.
+  const rise = (delay: number) => ({
+    style: { animationDelay: `${delay}s` },
+  });
 
   return (
     <section
@@ -39,38 +28,38 @@ export default function Hero() {
 
       <div className="mx-auto grid grid-cols-1 max-w-[76rem] items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.08fr_1fr] lg:gap-16 lg:px-8">
         <div>
-          <motion.h1
+          <h1
             id="hero-title"
             {...rise(0)}
-            className="text-balance text-[clamp(2.75rem,7vw,5.75rem)] leading-[0.95] font-extrabold tracking-[-0.045em] [font-stretch:92%]"
+            className="hero-rise text-balance text-[clamp(2.75rem,7vw,5.75rem)] leading-[0.95] font-extrabold tracking-[-0.045em] [font-stretch:92%]"
           >
             Be the first name
             <span className="mt-1 block font-serif text-[1.04em] font-normal tracking-[-0.03em] italic [font-stretch:100%]">
               people find nearby.
             </span>
-          </motion.h1>
+          </h1>
 
-          <motion.p
+          <p
             {...rise(0.12)}
-            className="mt-6 max-w-[34rem] text-pretty text-[1.0625rem] leading-relaxed text-ink-soft sm:mt-8 sm:text-xl"
+            className="hero-rise mt-6 max-w-[34rem] text-pretty text-[1.0625rem] leading-relaxed text-ink-soft sm:mt-8 sm:text-xl"
           >
             SiteSphere is a web design and marketing agency for local businesses.
             We build fast, custom websites, rank you in local search, and run UGC
             and paid ads that turn attention into calls and bookings.
-          </motion.p>
+          </p>
 
-          <motion.div {...rise(0.22)} className="mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
+          <div {...rise(0.22)} className="hero-rise mt-8 flex flex-col gap-3 sm:mt-10 sm:flex-row">
             <LinkButton href="#contact" size="lg">
               Book a free strategy call
             </LinkButton>
             <LinkButton href="#industries" size="lg" variant="secondary">
               See what we build
             </LinkButton>
-          </motion.div>
+          </div>
 
-          <motion.ul
+          <ul
             {...rise(0.32)}
-            className="mt-8 flex flex-col gap-2.5 text-[0.9375rem] text-ink-soft sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-x-6"
+            className="hero-rise mt-8 flex flex-col gap-2.5 text-[0.9375rem] text-ink-soft sm:mt-10 sm:flex-row sm:flex-wrap sm:gap-x-6"
           >
             {commitments.map((item) => (
               <li key={item} className="flex items-center gap-2">
@@ -78,24 +67,18 @@ export default function Hero() {
                 {item}
               </li>
             ))}
-          </motion.ul>
+          </ul>
         </div>
 
-        <motion.div
-          {...(reduceMotion
-            ? {}
-            : {
-                initial: { opacity: 0, y: 40, rotate: 1.5 },
-                animate: { opacity: 1, y: 0, rotate: 0 },
-                transition: { duration: 1, delay: 0.25, ease: [0.22, 1, 0.36, 1] as const },
-              })}
-          className="relative mx-auto w-full max-w-[30rem] lg:max-w-none"
+        <div
+          style={{ animationDelay: "0.25s" }}
+          className="hero-panel-in relative mx-auto w-full max-w-[30rem] lg:max-w-none"
         >
           <LocalSearchDemo />
           <p className="mt-4 text-center text-sm text-ink-faint lg:text-left">
             An illustration of a local search. Our work is getting you to the top of it.
           </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
